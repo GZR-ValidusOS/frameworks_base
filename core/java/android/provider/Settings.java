@@ -3888,6 +3888,15 @@ public final class Settings {
          */
         public static final String FLASHLIGHT_NOTIFICATION = "flashlight_notification";
 
+       /**
+        * MediaScanner behavior on boot.
+        * 0 = enabled
+        * 1 = ask (notification)
+        * 2 = disabled
+        * @hide
+        */
+        public static final String MEDIA_SCANNER_ON_BOOT = "media_scanner_on_boot";
+
         /**
          * Change quick settings tiles animation style
          *
