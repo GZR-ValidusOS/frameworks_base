@@ -4106,6 +4106,13 @@ public final class Settings {
 
         /**
          * Volume rocker wake
+         * Whether to wake the screen with the home key, the value is boolean.
+         * @hide
+         */
+        public static final String HOME_WAKE_SCREEN = "home_wake_screen";
+
+        /**
+         * Volume rocker wake
          * @hide
          */
         public static final String VOLUME_ROCKER_WAKE = "volume_rocker_wake";
