@@ -53,10 +53,8 @@ public class FlashlightController {
 
     private static final String ACTION_TURN_FLASHLIGHT_OFF = "com.android.systemui.action.TURN_FLASHLIGHT_OFF";
 
-    private Context mContext;
-
     private final CameraManager mCameraManager;
-    /** Call {@link #ensureHandler()} before using */
+    private Context mContext;
     private Handler mHandler;
 
     /** Lock on mListeners when accessing */
@@ -92,7 +90,7 @@ public class FlashlightController {
     };
 
     public FlashlightController(Context context) {
-        this.mContext = mContext;
+        mContext = context;
         mCameraManager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
 
         tryInitCamera();
