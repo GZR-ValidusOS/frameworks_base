@@ -224,4 +224,7 @@
   <java-symbol type="integer" name="config_offsetCenterX" />
   <java-symbol type="integer" name="config_offsetCenterY" />
 
+  <!-- Automatic brightness enhancements -->
+  <java-symbol type="integer" name="config_autoBrightnessBrighteningLightFastDebounce"/>
+
 </resources>

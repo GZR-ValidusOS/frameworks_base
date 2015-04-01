@@ -64,4 +64,7 @@
 
     <bool name="single_hand_mode">true</bool>
 
+    <!-- Automatic brightness enhancements -->
+    <integer name="config_autoBrightnessBrighteningLightFastDebounce">500</integer>
+
 </resources>
