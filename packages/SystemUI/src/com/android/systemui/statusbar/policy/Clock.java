@@ -298,6 +298,14 @@ public class Clock extends TextView implements DemoMode {
         String format = mShowSeconds
                 ? is24 ? d.timeFormat_Hms : d.timeFormat_hms
                 : is24 ? d.timeFormat_Hm : d.timeFormat_hm;
+
+        // replace seconds directly in format, not in result
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.CLOCK_USE_SECOND, 0) == 1) {
+            String temp = format;
+            format = temp.replaceFirst("mm","mm:ss");
+        }
+
         if (!format.equals(mClockFormatString)) {
             mContentDescriptionFormat = new SimpleDateFormat(format);
             /*
