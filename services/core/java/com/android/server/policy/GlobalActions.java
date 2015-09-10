@@ -94,6 +94,8 @@ import android.os.RemoteException;
 import static android.view.WindowManager.TAKE_SCREENSHOT_FULLSCREEN;
 import static android.view.WindowManager.TAKE_SCREENSHOT_SELECTED_REGION;
 
+import com.android.internal.util.crdroid.OnTheGoActions;
+
 /**
  * Helper to show the global actions dialog.  Each item is an {@link Action} that
  * may show depending on whether the keyguard is showing, and whether the device
@@ -318,6 +320,36 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         onAirplaneModeChanged();
 
         mItems = new ArrayList<Action>();
+
+        // next: On-The-Go, if enabled
+	ContentResolver resolver = mContext.getContentResolver();
+        boolean showOnTheGo = Settings.System.getInt(
+                resolver, Settings.System.POWER_MENU_ONTHEGO_ENABLED, 0) == 1;
+        if (showOnTheGo) {
+            mItems.add(
+                new SinglePressAction(com.android.internal.R.drawable.ic_lock_onthego,
+                        R.string.global_action_onthego) {
+
+                        public void onPress() {
+                            OnTheGoActions.processAction(mContext,
+                                    OnTheGoActions.ACTION_ONTHEGO_TOGGLE);
+                        }
+
+                        public boolean onLongPress() {
+                            return false;
+                        }
+
+                        public boolean showDuringKeyguard() {
+                            return true;
+                        }
+
+                        public boolean showBeforeProvisioning() {
+                            return true;
+                        }
+                    }
+            );
+        }
+
         String[] defaultActions = mContext.getResources().getStringArray(
                 com.android.internal.R.array.config_globalActionsList);
 
@@ -816,6 +848,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
     }
 
+<<<<<<< HEAD
     class ScreenshotRunnable implements Runnable {
         private int mScreenshotFullscreen = TAKE_SCREENSHOT_FULLSCREEN;
         private int mScreenshotSelectedRegion = TAKE_SCREENSHOT_SELECTED_REGION;
@@ -911,6 +944,15 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 mHandler.postDelayed(mScreenshotTimeout, 10000);
             }
         }
+    }
+
+    private void startOnTheGo() {
+        final ComponentName cn = new ComponentName("com.android.systemui",
+                "com.android.systemui.crdroid.onthego.OnTheGoService");
+        final Intent startIntent = new Intent();
+        startIntent.setComponent(cn);
+        startIntent.setAction("start");
+        mContext.startService(startIntent);
     }
 
     /**
