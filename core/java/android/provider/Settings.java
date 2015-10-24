@@ -3943,12 +3943,19 @@ public final class Settings {
          */
         public static final String LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
 
+
         /**
          * Whether shorcuts open with normal or longpress
          * @hide
          */
         public static final String LOCKSCREEN_SHORTCUTS_LONGPRESS =
                 "lockscreen_shortcuts_longpress";
+
+        /**
+         * Whether to show media art on lockscreen
+         * @hide
+         */
+        public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
 
         /**
          * Whether to allow one finger quick settings expansion on the left or right side of the statusbar.
