@@ -4104,7 +4104,36 @@ public final class Settings {
         public static final String POWER_REBOOT_DIALOG_DIM = "power_reboot_dialog_dim";
 
         /**
-         *  Enable flashlight notification
+         * Volume key controls ringtone or media sound stream
+         * @hide
+         */
+        public static final String VOLUME_KEYS_CONTROL_MEDIA_STREAM =
+                "volume_keys_control_media_stream";
+
+        /**
+         * Whether or not volume button music controls should be enabled to seek media tracks
+         * @hide
+         */
+        public static final String VOLUME_ROCKER_MUSIC_CONTROLS = "volume_rocker_music_controls";
+
+        /**
+         * Swap volume buttons when the screen is rotated
+         * 0 - Disabled
+         * 1 - Enabled (screen is rotated by 90 or 180 degrees: phone, hybrid)
+         * 2 - Enabled (screen is rotated by 180 or 270 degrees: tablet)
+         * @hide
+         */
+        public static final String SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
+
+        /**
+         * Toast icon
+         * @hide
+         */
+        public static final String TOAST_ICON = "toast_icon";
+
+        /**
+         * Configure the vibration when double tapping the power button to launch the camera
+>>>>>>> 998de61... Option to use volume keys to control media volume anytime (2/2)
          * @hide
          */
         public static final String FLASHLIGHT_NOTIFICATION = "flashlight_notification";
