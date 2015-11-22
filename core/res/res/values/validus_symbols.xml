@@ -241,4 +241,8 @@
 
   <!-- Whether to enable HumanInteractionController by default -->
   <java-symbol type="bool" name="config_HICEnabledDefault" />
+
+  <!-- Fix screen rotation for olderdevices -->
+  <java-symbol type="bool" name="config_useSystemClockforRotationSensor" />
+
 </resources>
