@@ -3318,6 +3318,13 @@ public final class Settings {
         public static final String ACCELEROMETER_ROTATION_ANGLES = "accelerometer_rotation_angles";
 
         /**
+         * Whether to display powermenu on secure lockscreen
+         *
+         * @hide
+         */
+        public static final String POWER_MENU_LOCKSCREEN = "power_menu_lockscreen";
+
+        /**
          * Default screen rotation when no other policy applies.
          * When {@link #ACCELEROMETER_ROTATION} is zero and no on-screen Activity expresses a
          * preference, this rotation value will be used. Must be one of the
@@ -3643,7 +3650,7 @@ public final class Settings {
          * This is an integer value in a range between -7 and +7, so there are 15 possible values.
          *   -7 = slowest
          *    0 = default speed
-         *   +7 = fastest   
+         *   +7 = fastest
          * @hide
          */
         public static final String POINTER_SPEED = "pointer_speed";
@@ -3652,7 +3659,7 @@ public final class Settings {
         public static final Validator POINTER_SPEED_VALIDATOR =
                 new InclusiveFloatRangeValidator(-7, 7);
 
-	/**
+    /**
          * Whether the phone volume up / down effect should be played
          * @hide
          */
@@ -3819,6 +3826,12 @@ public final class Settings {
          * @hide
          */
         public static final String NETWORK_TRAFFIC_HIDEARROW = "network_traffic_hidearrow";
+
+        /**
+         * whether to enable torch on lockscreen
+         * @hide
+         */
+        public static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
 
         /**
          * Whether to display sound panel in the power menu
