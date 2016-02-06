@@ -4649,19 +4649,6 @@ public final class Settings {
          */
         public static final String QS_BT_EASY_TOGGLE = "qs_bt_easy_toggle";
 
-       /**
-         * Defines the shortcuts to be shown on lockscreen
-         * Usage is like this: target:icon|target:icon|target:icon
-         * if :icon is not set, default application icon will be used
-         * @hide
-        public static final String LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";         */
-
-        /**
-         * Whether shorcuts open with normal or longpress
-         * @hide
-        public static final String LOCKSCREEN_SHORTCUTS_LONGPRESS =
-                "lockscreen_shortcuts_longpress";          */
-
         /**
          * Dyanamic Navbar Switch
          * @hide
@@ -4681,6 +4668,24 @@ public final class Settings {
         public static final String NAVBAR_BUTTON_COLOR= "navbar_button_color";
 
         /*
+         * Hide lockscreen date
+         * @hide
+         */
+        public static final String HIDE_LOCKSCREEN_DATE = "hide_lockscreen_date";
+
+        /**
+         * Hide lockscreen clock
+         * @hide
+         */
+        public static final String HIDE_LOCKSCREEN_CLOCK = "hide_lockscreen_clock";
+
+        /**
+         * Hide lockscreen alarm
+         * @hide
+         */
+        public static final String HIDE_LOCKSCREEN_ALARM = "hide_lockscreen_alarm";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
