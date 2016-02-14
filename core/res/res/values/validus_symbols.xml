@@ -66,4 +66,7 @@
   <java-symbol type="style" name="GlobalActionsAnimationTop" />
   <java-symbol type="style" name="GlobalActionsAnimationEnter" />
 
+  <!-- Hardware key binding -->
+  <java-symbol type="integer" name="config_deviceHardwareKeys" />
+
 </resources>
