@@ -4049,8 +4049,24 @@ public final class Settings {
         public static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
 
         /**
-         * Whether to display sound panel in the power menu
+         * Whether the user has enabled headsup (Default 1)
+         * HeadsUp is enabled by default within its 
+         * setting. Avoid changing low level implementations and use a System setting to
+         * override per-user heads up on/off preference.
          *
+         * Enable headsup = 1 (on by default)
+         * Disable headsup = 0
+         *
+         * @see com.android.systemui.statusbar.BaseStatusBar#addNotification
+         * @hide
+         */
+        public static final String HEADS_UP_USER_ENABLED = "heads_up_user_enabled";
+
+        /** @hide */ public static final int HEADS_UP_USER_OFF = 0;
+        /** @hide */ public static final int HEADS_UP_USER_ON = 1;
+
+        /**
+         * Whether to display sound panel in the power menu
          * @hide
          */
         public static final String POWERMENU_SOUNDPANEL = "powermenu_soundpanel";
