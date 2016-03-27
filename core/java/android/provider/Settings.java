@@ -4049,6 +4049,12 @@ public final class Settings {
         public static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
 
         /**
+         * Heads up timeout configuration
+         * @hide
+         */
+        public static final String HEADS_UP_TIMEOUT = "heads_up_timeout";
+
+        /**
          * Whether the user has enabled headsup (Default 1)
          * HeadsUp is enabled by default within its 
          * setting. Avoid changing low level implementations and use a System setting to
