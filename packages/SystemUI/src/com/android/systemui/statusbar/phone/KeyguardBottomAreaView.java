@@ -78,6 +78,11 @@ import com.android.systemui.statusbar.policy.AccessibilityController;
 import com.android.systemui.statusbar.policy.FlashlightController;
 import com.android.systemui.statusbar.policy.PreviewInflater;
 
+import java.util.Objects;
+
+import static android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK;
+import static android.view.accessibility.AccessibilityNodeInfo.AccessibilityAction;
+
 /**
  * Implementation for the bottom area of the Keyguard, including camera/phone affordance and status
  * text.
@@ -127,6 +132,8 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
     private boolean mUserSetupComplete;
     private boolean mPrewarmBound;
     private Messenger mPrewarmMessenger;
+    private Intent mLastCameraIntent;
+
     private final ServiceConnection mPrewarmConnection = new ServiceConnection() {
 
         @Override
@@ -700,7 +707,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
             }
             mLastCameraIntent = cameraIntent;
             if (mCameraPreview != null) {
-                mCameraPreview.setVisibility(View.GONE);
+                mCameraPreview.setVisibility(View.INVISIBLE);
             }
         }
     }
