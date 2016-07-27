@@ -66,9 +66,9 @@ public class ZenModeConfig implements Parcelable {
 
     public static final int[] ALL_DAYS = { Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY,
             Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY };
-    public static final int[] WEEKNIGHT_DAYS = { Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY,
-            Calendar.WEDNESDAY, Calendar.THURSDAY };
-    public static final int[] WEEKEND_DAYS = { Calendar.FRIDAY, Calendar.SATURDAY };
+    public static final int[] WEEKNIGHT_DAYS = { Calendar.MONDAY, Calendar.TUESDAY,
+            Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY,  };
+    public static final int[] WEEKEND_DAYS = { Calendar.SATURDAY, Calendar.SUNDAY };
 
     public static final int[] MINUTE_BUCKETS =  new int[] { 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345, 360, 375, 390, 405, 420, 435, 450, 465, 480, 495, 510, 510, 525, 540, 555, 570, 585, 600, 615, 630, 645, 660, 675, 690, 705, 720, 735, 750, 765, 780, 795, 810, 825, 840 };
     private static final int SECONDS_MS = 1000;
