@@ -17,6 +17,23 @@
 
 <resources>
 
+    <!-- PA PIE -->
+    <color name="pie_menu_background">#C0000000</color>
+    <color name="alpha_mask">#aa000000</color>
+    <color name="opaque_mask">#ff000000</color>
+    <color name="snap_background">#ffffffff</color>
+    <color name="pie_background">#af000000</color>
+    <color name="pie_button">#b2ffffff</color>
+    <color name="pie_select">#ff009688</color>
+    <color name="pie_outlines">#ff1b1f23</color>
+    <color name="chevron">#ff009688</color>
+    <color name="battery_juice">#ff00ff00</color>
+    <color name="battery_juice_low">#ffbb33</color>
+    <color name="battery_juice_critical">#ff4444</color>
+    <color name="battery_background">#ffffff</color>
+    <color name="status">#ffffff</color>
+
+
     <color name="system_primary_color">#ff263238</color><!-- blue grey 900 -->
 
     <!-- Custom Carrier Label -->
@@ -29,4 +46,6 @@
     <color name="fab_color">?android:attr/colorAccent</color>
     <color name="floating_action_button_icon_color">@android:color/white</color>
 
+    <!-- QS edit page background color -->
+    <color name="qs_edit_item_decoration_bg">@*android:color/secondary_device_default_settings</color>
 </resources>
