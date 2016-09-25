@@ -2207,11 +2207,14 @@ message MetricsEvent {
     // CATEGORY: SETTINGS
     ACTION_AMBIENT_DISPLAY = 495;
 
-    // Validus
-    WOLVESDEN = 496;
-
     // ---- End N-MR1 Constants, all N-MR1 constants go above this line ----
     // Add new aosp constants above this line.
     // END OF AOSP CONSTANTS
+
+    // Validus
+    WOLVESDEN = 496;
+
+    // Quick setting tiles
+    QUICK_SETTINGS = 497;
   }
 }
