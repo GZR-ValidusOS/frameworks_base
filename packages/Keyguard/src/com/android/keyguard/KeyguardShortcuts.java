@@ -1,5 +1,6 @@
+
 /*
- * Copyright (C) 2014 Slimroms
+ * Copyright (C) 2016 crDroid Android Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,10 +32,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.internal.util.slim.AppHelper;
-import com.android.internal.util.slim.ActionHelper;
-import com.android.internal.util.slim.ActionConfig;
-import com.android.internal.util.slim.Action;
+import com.android.internal.util.crdroid.AppHelper;
+import com.android.internal.util.crdroid.ActionHelper;
+import com.android.internal.util.crdroid.ActionConfig;
+import com.android.internal.util.crdroid.Action;
 import com.android.internal.widget.LockPatternUtils;
 
 import com.android.keyguard.R;
