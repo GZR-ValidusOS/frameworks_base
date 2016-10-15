@@ -41,9 +41,6 @@ import com.android.systemui.statusbar.policy.SignalCallbackAdapter;
 public class CellularTile extends QSTile<QSTile.SignalState> {
     static final Intent CELLULAR_SETTINGS = new Intent().setComponent(new ComponentName(
             "com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-    private static final Intent MOBILE_NETWORK_SETTINGS = new Intent(Intent.ACTION_MAIN)
-            .setComponent(new ComponentName("com.android.phone",
-                    "com.android.phone.MobileNetworkSettings"));
 
     private final NetworkController mController;
     private final DataUsageController mDataController;
@@ -91,13 +88,8 @@ public class CellularTile extends QSTile<QSTile.SignalState> {
     protected void handleClick() {
         MetricsLogger.action(mContext, getMetricsCategory());
         if (mDataController.isMobileDataSupported()) {
-            if(mController.isAdvancedDataTileEnabled()) {
-		boolean enabled = mDataController.isMobileDataEnabled();
-		if (!enabled) {
-		    mDataController.setMobileDataEnabled(true);
-        	} else {
-        	    mDataController.setMobileDataEnabled(false);
-	        }
+            if(mController.isEasyToggleEnabled()) {
+                mDataController.setMobileDataEnabled(!mDataController.isMobileDataEnabled());
             } else {
                 showDetail(true);
             }
@@ -109,7 +101,7 @@ public class CellularTile extends QSTile<QSTile.SignalState> {
     @Override
     protected void handleLongClick() {
         MetricsLogger.action(mContext, getMetricsCategory());
-        if(mController.isAdvancedDataTileEnabled()) {
+        if(mController.isEasyToggleEnabled()) {
             if (mDataController.isMobileDataSupported()) {
             showDetail(true);
             } else {
@@ -284,7 +276,7 @@ public class CellularTile extends QSTile<QSTile.SignalState> {
 
         @Override
         public Intent getSettingsIntent() {
-            return MOBILE_NETWORK_SETTINGS;
+            return CELLULAR_SETTINGS;
         }
 
         @Override

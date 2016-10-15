@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.provider.Settings;
+import android.provider.Settings.Secure;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,21 +89,7 @@ public class BluetoothTile extends QSTile<QSTile.BooleanState>  {
 
     @Override
     protected void handleLongClick() {
-        boolean easyToggle = isBtEasyToggleEnabled();
-        if (easyToggle) {
-            if (!mController.canConfigBluetooth()) {
-                mHost.startActivityDismissingKeyguard(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
-            } else {
-                showDetail(true);
-            }
-        } else {
-            mHost.startActivityDismissingKeyguard(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
-        }
-    }
-
-    @Override
-    protected void handleLongClick() {
-        boolean easyToggle = isBtEasyToggleEnabled();
+        boolean easyToggle = isEasyToggleEnabled();
         if (easyToggle) {
             if (!mController.canConfigBluetooth()) {
                 mHost.startActivityDismissingKeyguard(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
@@ -116,23 +103,23 @@ public class BluetoothTile extends QSTile<QSTile.BooleanState>  {
 
     @Override
     protected void handleClick() {
-        boolean easyToggle = isBtEasyToggleEnabled();
-        if (easyToggle) {
-            final boolean isEnabled = (Boolean)mState.value;
-            MetricsLogger.action(mContext, getMetricsCategory(), !isEnabled);
-	     mController.setBluetoothEnabled(!isEnabled);
-         } else {
-            if (!mController.canConfigBluetooth()) {
-	        mHost.startActivityDismissingKeyguard(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
-    	        return;
-    	     }
+        boolean easyToggle = isEasyToggleEnabled();
+            if (easyToggle) {
+                final boolean isEnabled = (Boolean)mState.value;
+                MetricsLogger.action(mContext, getMetricsCategory(), !isEnabled);
+	        mController.setBluetoothEnabled(!isEnabled);
+            } else {
+                if (!mController.canConfigBluetooth()) {
+	            mHost.startActivityDismissingKeyguard(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
+    	            return;
+    	        }
+                if (!mState.value) {
+                    mState.value = true;
+	            mController.setBluetoothEnabled(true);
+                }
             showDetail(true);
-            if (!mState.value) {
-               mState.value = true;
-	        mController.setBluetoothEnabled(true);
             }
         }
-    }
 
     @Override
     public CharSequence getTileLabel() {
@@ -194,9 +181,9 @@ public class BluetoothTile extends QSTile<QSTile.BooleanState>  {
         state.minimalAccessibilityClassName = Switch.class.getName();
     }
 
-    public boolean isBtEasyToggleEnabled() {
-        return Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.QS_BT_EASY_TOGGLE, 0) == 1;
+    public boolean isEasyToggleEnabled() {
+        return Settings.Secure.getInt(mContext.getContentResolver(),
+            Settings.Secure.QS_EASY_TOGGLE, 0) == 1;
     }
 
     @Override
