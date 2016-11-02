@@ -27,6 +27,8 @@
          [CHAR LIMIT=4] -->
     <string name="status_bar_notification_info_overflow" translatable="false">\u221E</string>
 
+    <string name="heads_up_snooze_message_one_minute">Peeking notification from <xliff:g id="string">%s</xliff:g> are snoozing for 1 minute.</string>
+    <string name="heads_up_snooze_message">Peeking notification from <xliff:g id="string">%s</xliff:g> are snoozing for <xliff:g id="number">%d</xliff:g> minutes.</string>
 
     <!-- Notification which notifies user flashlight is enabled -->
     <string name="quick_settings_tile_flashlight_not_title">Flashlight is on</string>
