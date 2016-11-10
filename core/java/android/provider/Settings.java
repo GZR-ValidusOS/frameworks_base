@@ -4225,6 +4225,12 @@ public final class Settings {
         public static final String SHOW_ALARM_FULLSCREEN = "show_alarm_fullscreen";
 
         /**
+         * Whether to control brightness from status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
+
+        /**
          * Whether to show Brightness Icon On Brightness Slider
          * @hide
          */
