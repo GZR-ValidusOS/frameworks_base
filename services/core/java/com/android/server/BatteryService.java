@@ -27,6 +27,7 @@ import com.android.server.lights.Light;
 import com.android.server.lights.LightsManager;
 
 import android.app.ActivityManagerNative;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -819,10 +820,10 @@ public final class BatteryService extends SystemService {
 
         public Led(Context context, LightsManager lights) {
             mBatteryLight = lights.getLight(LightsManager.LIGHT_ID_BATTERY);
+            final NotificationManager nm = context.getSystemService(NotificationManager.class);
 
             // Does the Device support changing battery LED colors?
-            mMultiColorLed = context.getResources().getBoolean(
-                    com.android.internal.R.bool.config_multiColorBatteryLed);
+            mMultiColorLed = nm.doLightsSupport(NotificationManager.LIGHTS_RGB_BATTERY_LED);
 
             mBatteryLedOn = context.getResources().getInteger(
                     com.android.internal.R.integer.config_notificationsBatteryLedOn);
