@@ -155,6 +155,7 @@ import com.android.systemui.navigation.NavigationController;
 import com.android.systemui.navigation.Navigator;
 import com.android.systemui.qs.QSContainer;
 import com.android.systemui.qs.QSPanel;
+import com.android.systemui.recents.RecentsActivity;
 import com.android.systemui.recents.ScreenPinningRequest;
 import com.android.systemui.recents.events.EventBus;
 import com.android.systemui.recents.events.activity.AppTransitionFinishedEvent;
@@ -412,6 +413,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private boolean mTranslucentNotifications;
     private int mQSTranslucencyPercentage;
     private int mNotTranslucencyPercentage;
+    private boolean mBlurredRecents;
+    private int mRadiusRecents;
+    private int mScaleRecents;
 
     // RemoteInputView to be activated after unlock
     private View mPendingRemoteInputView;
@@ -532,32 +536,32 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                   Settings.System.QS_ROWS_LANDSCAPE),
                   false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_VALIDUS_LOGO),
-                    false, this, UserHandle.USER_ALL);
+                  Settings.System.STATUS_BAR_VALIDUS_LOGO),
+                  false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                   Settings.System.STATUS_BAR_SHOW_CARRIER),
-                   false, this, UserHandle.USER_ALL);
+                  Settings.System.STATUS_BAR_SHOW_CARRIER),
+                  false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
-                    Settings.Secure.LOCK_QS_DISABLED),
-                    false, this, UserHandle.USER_ALL);
+                  Settings.Secure.LOCK_QS_DISABLED),
+                  false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL),
-                    false, this, UserHandle.USER_ALL);
+                  Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL),
+                  false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.SCREEN_BRIGHTNESS_MODE),
-                    false, this, UserHandle.USER_ALL);
+                  Settings.System.SCREEN_BRIGHTNESS_MODE),
+                  false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.NAV_BAR_DYNAMIC),
-                    false, this, UserHandle.USER_ALL);
+                   Settings.System.NAV_BAR_DYNAMIC),
+                   false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.NAVBAR_TINT_SWITCH),
-                    false, this, UserHandle.USER_ALL);
+                   Settings.System.NAVBAR_TINT_SWITCH),
+                   false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.NAVBAR_BUTTON_COLOR),
-                    false, this, UserHandle.USER_ALL);
+                   Settings.System.NAVBAR_BUTTON_COLOR),
+                   false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.BLUR_SCALE_PREFERENCE_KEY), 
-                    false, this);
+                   Settings.System.BLUR_SCALE_PREFERENCE_KEY), 
+                   false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.BLUR_RADIUS_PREFERENCE_KEY), 
                    false, this);
@@ -576,6 +580,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.TRANSLUCENT_NOTIFICATIONS_PRECENTAGE_PREFERENCE_KEY), 
                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                   Settings.System.RECENT_APPS_ENABLED_PREFERENCE_KEY), 
+                   false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                   Settings.System.RECENT_APPS_SCALE_PREFERENCE_KEY), 
+                   false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                   Settings.System.RECENT_APPS_RADIUS_PREFERENCE_KEY), 
+                   false, this);
             updateSettings();
         }
 
@@ -600,6 +613,14 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
            } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.NAVBAR_BUTTON_COLOR))) {
                     mNavigationController.updateNavbarOverlay(mContext.getResources());
+           } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.RECENT_APPS_ENABLED_PREFERENCE_KEY))) {
+                    mBlurredRecents = Settings.System.getIntForUser(
+                          mContext.getContentResolver(),
+                          Settings.System.RECENT_APPS_ENABLED_PREFERENCE_KEY,
+                          0, UserHandle.USER_CURRENT) == 1;
+                    RecentsActivity.startBlurTask();
+                    updatePreferences(mContext);
            } 
             updateSettings();
         }
@@ -635,7 +656,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             }
         }
     }
-
+      // Blur options
             mBlurScale = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.BLUR_SCALE_PREFERENCE_KEY, 10);
             mBlurRadius = Settings.System.getInt(mContext.getContentResolver(),
@@ -650,8 +671,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.TRANSLUCENT_QUICK_SETTINGS_PRECENTAGE_PREFERENCE_KEY, 60);
             mNotTranslucencyPercentage = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.TRANSLUCENT_NOTIFICATIONS_PRECENTAGE_PREFERENCE_KEY, 70);
-            //updatePreferences(this.mContext);
-            //RecentsActivity.startBlurTask();
+            mBlurredRecents = Settings.System.getIntForUser(resolver,
+                    Settings.System.RECENT_APPS_ENABLED_PREFERENCE_KEY, 0, UserHandle.USER_CURRENT) == 1;
+            mScaleRecents = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.RECENT_APPS_SCALE_PREFERENCE_KEY, 6);
+            mRadiusRecents = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.RECENT_APPS_RADIUS_PREFERENCE_KEY, 3);
+            RecentsActivity.updateRadiusScale(mScaleRecents,mRadiusRecents);
 
     // ensure quick settings is disabled until the current user makes it through the setup wizard
     private boolean mUserSetup = false;
@@ -1299,14 +1325,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     if (NotificationPanelView.mKeyguardShowing) {
                         return;
                     }
-                    //RecentsActivity.onConfigurationChanged();
                     String action = intent.getAction();
 
                if (action.equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
                         if (NotificationPanelView.mKeyguardShowing) {
                             return;
                         }
-                        //RecentsActivity.onConfigurationChanged();
+                        RecentsActivity.onConfigurationChanged();
 
                         if (mExpandedVisible && NotificationPanelView.mBlurredStatusBarExpandedEnabled && (!NotificationPanelView.mKeyguardShowing)) {
                             makeExpandedInvisible();
@@ -1319,7 +1344,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             intent.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
             this.mContext.registerReceiver(receiver, intent);
 
-            //RecentsActivity.init(this.mContext);
+            RecentsActivity.init(this.mContext);
 
             updatePreferences(this.mContext);
         } catch (Exception e){
@@ -1348,6 +1373,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     }
 
     public static void updatePreferences(Context context) {
+        RecentsActivity.updatePreferences(context);
         BaseStatusBar.updatePreferences();
     }
 
