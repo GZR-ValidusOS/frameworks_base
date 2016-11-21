@@ -5032,6 +5032,12 @@ public final class Settings {
          */
         public static final String STATUS_BAR_CUSTOM_HEADER = "status_bar_custom_header";
 
+        /*
+         * Check the proximity sensor during wakeup
+         * @hide
+         */
+        public static final String PROXIMITY_ON_WAKE = "proximity_on_wake";
+
         /**
          * Whether to apply a shadow on top of the header image
          * value is the alpha value of the shadow image is 0 -> no shadow -> 255 black
