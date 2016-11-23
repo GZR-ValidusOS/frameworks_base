@@ -7249,6 +7249,12 @@ public final class Settings {
         public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
 
         /**
+         * Whether to sync the battery tile stile with the statusbar battery icon style
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE_TILE = "status_bar_battery_style_tile";
+
+        /**
         * Whether the camera double twist gesture to flip between front and back mode should be
          * enabled.
          * @hide
@@ -7514,7 +7520,8 @@ public final class Settings {
             QS_TILES,
             ADVANCED_REBOOT,
             STATUS_BAR_SHOW_BATTERY_PERCENT,
-            STATUS_BAR_BATTERY_STYLE
+            STATUS_BAR_BATTERY_STYLE,
+            STATUS_BAR_BATTERY_STYLE_TILE
         };
 
         /**
