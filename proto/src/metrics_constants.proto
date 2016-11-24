@@ -2208,7 +2208,7 @@ message MetricsEvent {
     ACTION_AMBIENT_DISPLAY = 495;
 
     // Validus
-    VALIDUS = 496;
+    WOLVESDEN = 496;
 
     // ---- End N-MR1 Constants, all N-MR1 constants go above this line ----
     // Add new aosp constants above this line.
