@@ -56,7 +56,6 @@ public class FlashlightController {
     private Context mContext;
 
     private final CameraManager mCameraManager;
-    private final Context mContext;
     /** Call {@link #ensureHandler()} before using */
     private Handler mHandler;
 
