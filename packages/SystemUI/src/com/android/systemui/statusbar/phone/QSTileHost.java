@@ -54,15 +54,9 @@ import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.ImeTile;
 import com.android.systemui.qs.tiles.IntentTile;
 import com.android.systemui.qs.tiles.LocationTile;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.android.systemui.qs.tiles.NightDisplayTile;
-=======
-=======
 import com.android.systemui.qs.tiles.MusicTile;
->>>>>>> ff93dac... [QUICK SETTINGS] Add Music QS Tile
 import com.android.systemui.qs.tiles.RebootTile;
->>>>>>> eeec281... [QUICK SETTINGS] Add Reboot/Recovery QS Tile
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.SyncTile;
