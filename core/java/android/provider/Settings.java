@@ -3460,6 +3460,27 @@ public final class Settings {
                 "notification_light_screen_on_enable";
 
         /**
+         * Whether the notification LED should repeatedly flash when a vmail is
+         * pending. The value is boolean (1 or 0).
+         * @hide
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_VMAIL_COLOR = "notification_light_pulse_vmail_color";
+
+        /**
+         * Whether the notification LED should repeatedly flash when a vmail is
+         * pending. The value is boolean (1 or 0).
+         * @hide
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_VMAIL_LED_ON = "notification_light_pulse_vmail_led_on";
+
+        /**
+         * Whether the notification LED should repeatedly flash when a vmail is
+         * pending. The value is boolean (1 or 0).
+         * @hide
+         */
+        public static final String NOTIFICATION_LIGHT_PULSE_VMAIL_LED_OFF = "notification_light_pulse_vmail_led_off";
+
+        /**
          * Whether the notification LED should repeatedly flash when a notification is
          * pending. The value is boolean (1 or 0).
          * @hide
@@ -3628,7 +3649,6 @@ public final class Settings {
         /**
          * @deprecated Use {@link android.provider.Settings.Global#KEY_SMS_BREATH} instead
          */
-        @Deprecated
         public static final String KEY_SMS_BREATH = Global.KEY_SMS_BREATH;
 
 

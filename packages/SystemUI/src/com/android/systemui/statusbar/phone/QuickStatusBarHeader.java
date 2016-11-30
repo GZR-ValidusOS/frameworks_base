@@ -365,7 +365,7 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     }
 
     private void startGZRActivity() {
-        Intent duIntent = new Intent(Intent.ACTION_MAIN);
+        Intent gzrIntent = new Intent(Intent.ACTION_MAIN);
         gzrIntent.setClassName("com.android.settings",
             "com.android.settings.Settings$WolvesDenActivity");
         mActivityStarter.startActivity(gzrIntent, true /* dismissShade */);
