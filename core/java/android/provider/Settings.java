@@ -4207,6 +4207,12 @@ public final class Settings {
         public static final String POWERMENU_SCREENRECORD = "powermenu_screenrecord";
 
         /**
+         * Whether to display data activity arrows for wifi/data connections
+         * @hide
+         */
+        public static final String DATA_ACTIVITY_ARROWS = "data_activity_arrows";
+
+        /**
          * Volume rocker wake
          * Whether to wake the screen with the home key, the value is boolean.
          * @hide

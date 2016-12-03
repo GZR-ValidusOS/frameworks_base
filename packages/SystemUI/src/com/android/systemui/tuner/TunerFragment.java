@@ -39,9 +39,11 @@ public class TunerFragment extends PreferenceFragment
 
     private static final String STATUS_BAR_VALIDUS_LOGO_STYLE = "status_bar_validus_logo_style";
     private static final String STATUS_BAR_VALIDUS_LOGO_POSITION = "status_bar_validus_logo_position";
+    private static final String DATA_WIFI_ACTIVITY_ARROWS = "data_activity_arrows";
 
     private ListPreference mValidusLogoStyle;
     private ListPreference mValidusLogoPosition;
+    private SwitchPreference mDataWifiActivityArrows;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,10 @@ public class TunerFragment extends PreferenceFragment
         mValidusLogoPosition.setValue(Integer.toString(Settings.System.getInt(resolver,
                 Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION, 0)));
         mValidusLogoPosition.setSummary(mValidusLogoPosition.getEntry());
+
+        mDataWifiActivityArrows = (SwitchPreference) findPreference(DATA_WIFI_ACTIVITY_ARROWS);
+        mDataWifiActivityArrows.setChecked((Settings.System.getInt(resolver,
+                Settings.System.DATA_ACTIVITY_ARROWS, 0) == 1));
     }
 
     @Override
@@ -117,6 +123,12 @@ public class TunerFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
+        if  (preference == mDataWifiActivityArrows) {
+            boolean checked = ((SwitchPreference)preference).isChecked();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.DATA_ACTIVITY_ARROWS, checked ? 1:0);
+            return true;
+        }
         return super.onPreferenceTreeClick(preference);
     }
 }

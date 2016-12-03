@@ -467,6 +467,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     // settings
     private QSPanel mQSPanel;
 
+    // data/wifi activity arrows
+    private boolean mDataWifiActivityArrows;
+
     // top bar
     BaseStatusBarHeader mHeader;
     protected KeyguardStatusBarView mKeyguardStatusBar;
@@ -731,6 +734,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.STATUS_BAR_BATTERY_SAVER_COLOR),
                     false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.DATA_ACTIVITY_ARROWS),
+                  false, this, UserHandle.USER_ALL);
             updateSettings();
         }
 
@@ -796,12 +802,21 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                         mContext.getContentResolver(),
                         Settings.Secure.STATUS_BAR_BATTERY_SAVER_COLOR, 0xfff4511e,
                         UserHandle.USER_CURRENT);
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DATA_ACTIVITY_ARROWS))) {
+                    mDataWifiActivityArrows = Settings.System.getIntForUser(
+                            mContext.getContentResolver(),
+                            Settings.System.DATA_ACTIVITY_ARROWS,
+                            0, UserHandle.USER_CURRENT) == 1;
             }
             updateSettings();
         }
 
         public void updateSettings() {
             ContentResolver resolver = mContext.getContentResolver();
+
+            boolean mDataWifiActivityArrows = Settings.System.getIntForUser(resolver,
+                    Settings.System.DATA_ACTIVITY_ARROWS, 0, UserHandle.USER_CURRENT) == 1;
 
             mValidusLogoStyle = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, 0, UserHandle.USER_CURRENT);
