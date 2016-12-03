@@ -482,7 +482,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
             if (uri.equals(Settings.Secure.getUriFor(
-            } else if (uri.equals(Settings.Secure.getUriFor(
                     Settings.Secure.QS_ROWS_PORTRAIT))
                     || uri.equals(Settings.Secure.getUriFor(
                     Settings.Secure.QS_ROWS_LANDSCAPE))) {
