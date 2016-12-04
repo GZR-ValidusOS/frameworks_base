@@ -389,6 +389,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     boolean mExpandedVisible;
 
+    // Validus logo
+    private boolean mValidusLogo;
+    private ImageView validusLogo;
+
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
     // the tracker view
@@ -473,6 +477,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                    Settings.Secure.QS_COLUMNS),
                    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.STATUS_BAR_SHOW_CARRIER),
                    false, this, UserHandle.USER_ALL);
            updateSettings();
@@ -499,6 +506,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         public void updateSettings() {
             ContentResolver resolver = mContext.getContentResolver();
+
+            mValidusLogo = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO, 0, mCurrentUserId) == 1;
+            showValidusLogo(mValidusLogo);
 
             mShowCarrierLabel = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_SHOW_CARRIER, 1, UserHandle.USER_CURRENT);
@@ -3604,6 +3615,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             }
         }, cancelAction, afterKeyguardGone);
     }
+
+    public void showValidusLogo(boolean show) {
+          if (mStatusBarView == null) return;
+          ContentResolver resolver = mContext.getContentResolver();
+          validusLogo = (ImageView) mStatusBarView.findViewById(R.id.validus_logo);
+          if (validusLogo != null) {
+              validusLogo.setVisibility(show ? (mValidusLogo ? View.VISIBLE : View.GONE) : View.GONE);
+          }
+     }
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override

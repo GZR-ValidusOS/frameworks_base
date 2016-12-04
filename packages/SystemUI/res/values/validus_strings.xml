@@ -99,4 +99,7 @@
     <string name="lockscreen_choose_action_title">Choose action</string>
     <string name="lockscreen_none_target">None</string>
 
+    <!-- Validus Logo -->
+    <string name="status_bar_validus_logo_title">Validus logo</string>
+    <string name="status_bar_validus_logo_summary">Enable to show Validus logo on the left side of the statusbar</string>
 </resources>

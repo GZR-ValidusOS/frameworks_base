@@ -4276,6 +4276,12 @@ public final class Settings {
         public static final String DIALER_OPENCNAM_AUTH_TOKEN = "dialer_opencnam_auth_token";
 
         /**
+         * Statusbar Validus logo
+         * @hide
+         */
+        public static final String STATUS_BAR_VALIDUS_LOGO = "status_bar_validus_logo";
+
+        /**
          * custom carrier label. The value is
          * String.
          */

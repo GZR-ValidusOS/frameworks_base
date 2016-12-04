@@ -93,6 +93,9 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
     private int mClockLocation;
     private LinearLayout mCenterClockLayout;
 
+    // Validus Logo
+    private ImageView mValidusLogo;
+
     private int mIconSize;
     private int mIconHPadding;
 
@@ -151,7 +154,10 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         scaleBatteryMeterViews(context);
 
         mNetworkTraffic = (NetworkTraffic) statusBar.findViewById(R.id.networkTraffic);
+
         mCarrierLabel = (TextView) statusBar.findViewById(R.id.statusbar_carrier_text);
+
+        mValidusLogo = (ImageView) statusBar.findViewById(R.id.validus_logo);
 
         mClock = (Clock) statusBar.findViewById(R.id.clock);
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
@@ -350,11 +356,19 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
     public void hideNotificationIconArea(boolean animate) {
         animateHide(mNotificationIconAreaInner, animate);
         animateHide(mCenterClockLayout, animate);
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_VALIDUS_LOGO, 0) == 1) {
+           animateHide(mValidusLogo, animate);
+        }
     }
 
     public void showNotificationIconArea(boolean animate) {
         animateShow(mNotificationIconAreaInner, animate);
         animateShow(mCenterClockLayout, animate);
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_VALIDUS_LOGO, 0) == 1) {
+           animateShow(mValidusLogo, animate);
+        }
     }
 
     public void setClockVisibility(boolean visible) {
@@ -583,6 +597,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mLeftClock.setTextColor(getTint(mTintArea, mLeftClock, mIconTint));
         mNetworkTraffic.setDarkIntensity(mDarkIntensity);
         mCarrierLabel.setTextColor(getTint(mTintArea, mCarrierLabel, mIconTint));
+        mValidusLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
     }
 
     public void appTransitionPending() {

@@ -15,14 +15,17 @@
  */
 package com.android.systemui.tuner;
 
+import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v14.preference.PreferenceFragment;
 import android.support.v14.preference.SwitchPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
+import android.support.v7.preference.PreferenceScreen;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
@@ -32,9 +35,21 @@ public class TunerFragment extends PreferenceFragment {
 
     private static final String TAG = "TunerFragment";
 
+    private static final String STATUS_BAR_VALIDUS_LOGO = "status_bar_validus_logo";
+
+    private SwitchPreference mValidusLogo;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
+
+        final ContentResolver resolver = getActivity().getContentResolver();
+
+        mValidusLogo = (SwitchPreference) findPreference(STATUS_BAR_VALIDUS_LOGO);
+        mValidusLogo.setChecked((Settings.System.getInt(resolver,
+                Settings.System.STATUS_BAR_VALIDUS_LOGO, 0) == 1));
     }
 
     @Override
@@ -61,5 +76,16 @@ public class TunerFragment extends PreferenceFragment {
         super.onPause();
 
         MetricsLogger.visibility(getContext(), MetricsEvent.TUNER, false);
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(Preference preference) {
+        if  (preference == mValidusLogo) {
+            boolean checked = ((SwitchPreference)preference).isChecked();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO, checked ? 1:0);
+            return true;
+          }
+        return super.onPreferenceTreeClick(preference);
     }
 }
