@@ -4132,8 +4132,6 @@ public final class Settings {
         public static final String TOAST_ICON = "toast_icon";
 
         /**
-         * Configure the vibration when double tapping the power button to launch the camera
->>>>>>> 998de61... Option to use volume keys to control media volume anytime (2/2)
          * @hide
          */
         public static final String FLASHLIGHT_NOTIFICATION = "flashlight_notification";
