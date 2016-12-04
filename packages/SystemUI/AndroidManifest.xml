@@ -251,11 +251,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".du.LockscreenShortcutsActivity"
+        <activity android:name=".validus.LockscreenShortcutsActivity"
                   android:icon="@drawable/tuner"
                   android:label="@string/lockscreen_targets_message"
                   android:theme="@android:style/Theme.Material.Settings"
-                  android:parentActivityName="com.dirtyunicorns.dutweaks.DirtyTweaks"
+                  android:parentActivityName="com.gzr.wolvesden.WolvesDen"
                   android:exported="true">
         </activity>
 
@@ -264,7 +264,7 @@
                   android:icon="@drawable/tuner"
                   android:theme="@style/TunerSettings"
                   android:label="@string/systemui_tuner_statusbar_title"
-                  android:parentActivityName="com.dirtyunicorns.dutweaks.DirtyTweaks"
+                  android:parentActivityName="com.gzr.wolvesden.WolvesDen"
                   android:process=":tuner"
                   android:exported="true">
         </activity>
