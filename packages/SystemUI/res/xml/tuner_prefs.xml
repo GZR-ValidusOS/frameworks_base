@@ -15,9 +15,9 @@
     xmlns:sysui="http://schemas.android.com/apk/res-auto"
     android:title="@string/systemui_tuner_statusbar_title">
 
-        <com.android.systemui.tuner.StatusBarSwitch
+        <!-- <com.android.systemui.tuner.StatusBarSwitch
             android:key="rotate"
-            android:title="@string/status_bar_settings_auto_rotation" />
+            android:title="@string/status_bar_settings_auto_rotation" /> -->
 
         <com.android.systemui.tuner.StatusBarSwitch
             android:key="headset"
