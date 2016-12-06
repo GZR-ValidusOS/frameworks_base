@@ -45,8 +45,6 @@ namespace {
             fprintf(fout, "%s %s\n", overlay.apk_path.string(), overlay.idmap_path.string());
         }
 
-        fclose(fout);
-
         // Make file world readable since Zygote (running as root) will read
         // it when creating the initial AssetManger object
         const mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH; // 0644

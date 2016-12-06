@@ -326,6 +326,7 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
             }
         if (v == mAlarmStatus && mNextAlarm != null) {
             PendingIntent showIntent = mNextAlarm.getShowIntent();
+            mActivityStarter.startPendingIntentDismissingKeyguard(showIntent);
             if (showIntent != null && showIntent.isActivity()) {
                 mActivityStarter.startActivity(showIntent.getIntent(), true /* dismissShade */);
             }

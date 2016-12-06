@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2015 The Android Open Source Project
  *
@@ -184,4 +185,12 @@ public abstract class PackageManagerInternal {
      *                     which to load the paths, or null if no overlays should be used.
      */
     public abstract void setResourceDirs(int userId, String packageName, String[] resourceDirs);
+
+    /**
+     * Gets whether the package was ever launched.
+     * @param packageName The package name.
+     * @param userId The user for which to check.
+     * @return Whether was launched.
+     */
+    public abstract boolean wasPackageEverLaunched(String packageName, int userId);
 }
