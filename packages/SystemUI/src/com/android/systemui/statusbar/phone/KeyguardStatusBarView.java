@@ -381,7 +381,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         if (key.equals(STATUS_BAR_SHOW_BATTERY_PERCENT)) {
             mShowBatteryText = newValue == null ? false : Integer.parseInt(newValue) == 2;
             mForceBatteryText = Settings.Secure.getInt(getContext().getContentResolver(),
-                    Settings.Secure.STATUS_BAR_BATTERY_STYLE, 0) == 5 ? true : false;
+                    Settings.Secure.STATUS_BAR_BATTERY_STYLE, 0) == 6 ? true : false;
             mForceChargeBatteryText = Settings.Secure.getInt(getContext().getContentResolver(),
                     Settings.Secure.FORCE_CHARGE_BATTERY_TEXT, 0) == 1 ? true : false;
             updateVisibilities();
