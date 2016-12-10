@@ -4306,6 +4306,12 @@ public final class Settings {
          */
         public static final String STATUS_BAR_CLOCK_SECONDS = "status_bar_clock_seconds";
 
+          /**
+          * Whether to show the negociated charger current in the lockscreen
+          * @hide
+          */
+         public static final String LOCKSCREEN_CHARGING_CURRENT = "lockscreen_charging_current";
+ 
         /**
          * AM/PM Style for clock options
          * 0 - Normal AM/PM
