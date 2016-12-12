@@ -27,6 +27,7 @@
          [CHAR LIMIT=4] -->
     <string name="status_bar_notification_info_overflow" translatable="false">\u221E</string>
 
+
     <!-- Notification which notifies user flashlight is enabled -->
     <string name="quick_settings_tile_flashlight_not_title">Flashlight is on</string>
     <string name="quick_settings_tile_flashlight_not_summary">Tap to turn off</string>
@@ -83,6 +84,7 @@
 
     <!-- SystemUI Tuner Parts -->
     <string name="systemui_tuner_statusbar_title">Statusbar items</string>
+    <string name="systemui_tuner_pnc_title">Power notification controls</string>
 
     <!-- Navigation bar Tile -->
     <string name="quick_settings_navigation_bar">Navigation bar</string>
