@@ -4602,6 +4602,12 @@ public final class Settings {
         public static final String QS_BT_EASY_TOGGLE = "qs_bt_easy_toggle";
 
         /**
+         * Dyanamic Navbar Switch
+         * @hide
+         */
+        public static final String NAV_BAR_DYNAMIC = "nav_bar_dynamic";
+
+        /*
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
