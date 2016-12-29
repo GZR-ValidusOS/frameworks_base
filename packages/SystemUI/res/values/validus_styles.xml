@@ -39,4 +39,6 @@
         <item name="blendMode">overlay</item>
     </style>
 
+    <style name="BatteryMeterViewDrawable.Solid"/>
+
 </resources>
