@@ -1799,7 +1799,7 @@ public final class PowerManagerService extends SystemService
                             int buttonBrightness, keyboardBrightness;
                             if (mHardwareKeysDisable) {
                                 buttonBrightness = 0;
-                                keyboardBrightness = 0
+                                keyboardBrightness = 0;
                             } else {
                             if (mButtonBrightnessOverrideFromWindowManager >= 0) {
                                 buttonBrightness = mButtonBrightnessOverrideFromWindowManager;
