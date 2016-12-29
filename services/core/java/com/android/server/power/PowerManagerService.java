@@ -503,6 +503,9 @@ public final class PowerManagerService extends SystemService
     // True if we are currently in light device idle mode.
     private boolean mLightDeviceIdleMode;
 
+    // overrule and disable brightness for buttons
+    private boolean mHardwareKeysDisable = false;
+
     // Set of app ids that we will always respect the wake locks for.
     int[] mDeviceIdleWhitelist = new int[0];
 
@@ -709,7 +712,6 @@ public final class PowerManagerService extends SystemService
             } catch (RemoteException e) {
                 Slog.e(TAG, "Failed to register VR mode state listener: " + e);
             }
-
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BUTTON_BRIGHTNESS),
                     false, mSettingsObserver, UserHandle.USER_ALL);
@@ -718,6 +720,9 @@ public final class PowerManagerService extends SystemService
                     false, mSettingsObserver, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BUTTON_BACKLIGHT_TIMEOUT),
+                    false, mSettingsObserver, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.HARDWARE_KEYS_DISABLE),
                     false, mSettingsObserver, UserHandle.USER_ALL);
 
             // Go.
@@ -853,6 +858,10 @@ public final class PowerManagerService extends SystemService
         mKeyboardBrightness = Settings.System.getIntForUser(resolver,
                 Settings.System.KEYBOARD_BRIGHTNESS, mKeyboardBrightnessSettingDefault,
                 UserHandle.USER_CURRENT);
+
+        mHardwareKeysDisable = Settings.Secure.getIntForUser(resolver,
+                Settings.Secure.HARDWARE_KEYS_DISABLE, 0,
+                UserHandle.USER_CURRENT) != 0;
 
         mDirty |= DIRTY_SETTINGS;
     }
@@ -1781,35 +1790,46 @@ public final class PowerManagerService extends SystemService
                 final boolean userInactiveOverride = mUserInactiveOverrideFromWindowManager;
 
                 mUserActivitySummary = 0;
-                if (mWakefulness == WAKEFULNESS_AWAKE && mLastUserActivityTime >= mLastWakeTime) {
+                if (mLastUserActivityTime >= mLastWakeTime) {
                     nextTimeout = mLastUserActivityTime
                             + screenOffTimeout - screenDimDuration;
                     if (now < nextTimeout) {
-                        int buttonBrightness, keyboardBrightness;
-                        if (mButtonBrightnessOverrideFromWindowManager >= 0) {
-                            buttonBrightness = mButtonBrightnessOverrideFromWindowManager;
-                            keyboardBrightness = mButtonBrightnessOverrideFromWindowManager;
-                        } else {
-                            buttonBrightness = mButtonBrightness;
-                            keyboardBrightness = mKeyboardBrightness;
-                        }
-
-                        mKeyboardLight.setBrightness(mKeyboardVisible ? keyboardBrightness : 0);
-                        if (mButtonTimeout != 0 && now > mLastUserActivityTime + mButtonTimeout) {
-                             mButtonsLight.setBrightness(0);
-                        } else {
-                            mButtonsLight.setBrightness(buttonBrightness);
-                            if (buttonBrightness != 0 && mButtonTimeout != 0) {
-                                nextTimeout = now + mButtonTimeout;
+                        mUserActivitySummary = USER_ACTIVITY_SCREEN_BRIGHT;
+                        if (mWakefulness == WAKEFULNESS_AWAKE) {
+                            int buttonBrightness, keyboardBrightness;
+                            if (mHardwareKeysDisable) {
+                                buttonBrightness = 0;
+                                keyboardBrightness = 0;
+                            } else {
+                            if (mButtonBrightnessOverrideFromWindowManager >= 0) {
+                                buttonBrightness = mButtonBrightnessOverrideFromWindowManager;
+                                keyboardBrightness = mButtonBrightnessOverrideFromWindowManager;
+                            } else {
+                                buttonBrightness = mButtonBrightness;
+                                keyboardBrightness = mKeyboardBrightness;
                             }
                         }
-                        mUserActivitySummary = USER_ACTIVITY_SCREEN_BRIGHT;
+
+                            mKeyboardLight.setBrightness(mKeyboardVisible ?
+                                    keyboardBrightness : 0);
+                            if (mButtonTimeout != 0
+                                    && now > mLastUserActivityTime + mButtonTimeout) {
+                                mButtonsLight.setBrightness(0);
+                            } else {
+                                mButtonsLight.setBrightness(buttonBrightness);
+                                if (buttonBrightness != 0 && mButtonTimeout != 0) {
+                                    nextTimeout = now + mButtonTimeout;
+                                }
+                            }
+                        }
                     } else {
                         nextTimeout = mLastUserActivityTime + screenOffTimeout;
                         if (now < nextTimeout) {
-                            mButtonsLight.setBrightness(0);
-                            mKeyboardLight.setBrightness(0);
                             mUserActivitySummary = USER_ACTIVITY_SCREEN_DIM;
+                            if (mWakefulness == WAKEFULNESS_AWAKE) {
+                                mButtonsLight.setBrightness(0);
+                                mKeyboardLight.setBrightness(0);
+                            }
                         }
                     }
                 }
