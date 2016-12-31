@@ -60,18 +60,14 @@ public class BatteryTile extends QSTile<QSTile.State> implements BatteryControll
     private int mBatteryStyle;
     private int mBatteryStyleTile;
 
-    public static final int BATTERY_STYLE_HIDDEN    = 4;
-    public static final int BATTERY_STYLE_TEXT      = 6;
-
     public BatteryTile(Host host) {
         super(host);
         mBatteryController = host.getBatteryController();
         mBatteryStyle = Settings.Secure.getInt(host.getContext().getContentResolver(),
-                Settings.Secure.STATUS_BAR_BATTERY_STYLE, 0);
-        mBatteryStyleTile = Settings.Secure.getInt(host.getContext().getContentResolver(),
-                Settings.Secure.STATUS_BAR_BATTERY_STYLE_TILE, 1);
-        if (mBatteryStyle == BATTERY_STYLE_HIDDEN || mBatteryStyle == BATTERY_STYLE_TEXT || mBatteryStyleTile == 0) {
-            mBatteryStyle = 0;
+                Settings.Secure.STATUS_BAR_BATTERY_STYLE, BatteryMeterDrawable.BATTERY_STYLE_PORTRAIT);
+        if (mBatteryStyle == BatteryMeterDrawable.BATTERY_STYLE_HIDDEN || 
+                mBatteryStyle == BatteryMeterDrawable.BATTERY_STYLE_TEXT) {
+            mBatteryStyle = BatteryMeterDrawable.BATTERY_STYLE_PORTRAIT;
         }
     }
 
@@ -140,11 +136,10 @@ public class BatteryTile extends QSTile<QSTile.State> implements BatteryControll
             @Override
             public Drawable getDrawable(Context context) {
                 mBatteryStyle = Settings.Secure.getInt(context.getContentResolver(),
-                        Settings.Secure.STATUS_BAR_BATTERY_STYLE, 0);
-                mBatteryStyleTile = Settings.Secure.getInt(context.getContentResolver(),
-                        Settings.Secure.STATUS_BAR_BATTERY_STYLE_TILE, 1);
-                if (mBatteryStyle == BATTERY_STYLE_HIDDEN || mBatteryStyle == BATTERY_STYLE_TEXT || mBatteryStyleTile == 0) {
-                    mBatteryStyle = 0;
+                        Settings.Secure.STATUS_BAR_BATTERY_STYLE, BatteryMeterDrawable.BATTERY_STYLE_PORTRAIT);
+                if (mBatteryStyle == BatteryMeterDrawable.BATTERY_STYLE_HIDDEN ||
+                        mBatteryStyle == BatteryMeterDrawable.BATTERY_STYLE_TEXT) {
+                    mBatteryStyle = BatteryMeterDrawable.BATTERY_STYLE_PORTRAIT;
                 }
                 BatteryMeterDrawable drawable =
                         new BatteryMeterDrawable(context, new Handler(Looper.getMainLooper()),
