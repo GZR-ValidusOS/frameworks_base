@@ -97,6 +97,9 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
     // Validus Logo
     private ImageView mValidusLogo;
 
+    private TextView mWeather;
+    private TextView mWeatherLeft;
+
     private int mIconSize;
     private int mIconHPadding;
 
@@ -161,7 +164,8 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mCarrierLabel = (TextView) statusBar.findViewById(R.id.statusbar_carrier_text);
 
         mValidusLogo = (ImageView) statusBar.findViewById(R.id.validus_logo);
-
+	mWeather = (TextView) statusBar.findViewById(R.id.weather_temp);
+	mWeatherLeft = (TextView) statusBar.findViewById(R.id.left_weather_temp);
         mClock = (Clock) statusBar.findViewById(R.id.clock);
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
         mCenterClock = (Clock) statusBar.findViewById(R.id.center_clock);
@@ -355,11 +359,21 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
     public void hideSystemIconArea(boolean animate) {
         animateHide(mSystemIconArea, animate);
         animateHide(mCenterClockLayout, animate);
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE, 0,
+                UserHandle.USER_CURRENT) == 1) {
+        animateHide(mWeatherLeft,animate);
+        } 
     }
 
     public void showSystemIconArea(boolean animate) {
         animateShow(mSystemIconArea, animate);
         animateShow(mCenterClockLayout, animate);
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE, 0,
+                UserHandle.USER_CURRENT) == 1) {
+        animateShow(mWeatherLeft,animate);
+        }
     }
 
     public void hideNotificationIconArea(boolean animate) {
@@ -608,6 +622,12 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mCarrierLabel.setTextColor(getTint(mTintArea, mCarrierLabel, mIconTint));
         mValidusLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
         mBatteryLevelView.setTextColor(getTint(mTintArea, mBatteryLevelView, mIconTint));
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_WEATHER_COLOR, 0xFFFFFFFF,
+                UserHandle.USER_CURRENT) == 0xFFFFFFFF) {
+        mWeather.setTextColor(mIconTint);
+        mWeatherLeft.setTextColor(mIconTint);
+        }
     }
 
     public void appTransitionPending() {
