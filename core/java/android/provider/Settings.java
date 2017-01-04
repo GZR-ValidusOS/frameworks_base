@@ -4092,6 +4092,12 @@ public final class Settings {
         public static final String HEADS_UP_NOTIFICATION_SNOOZE = "heads_up_notification_snooze";
 
         /**
+         * Whether to hide Settings drawer
+         * @hide
+         */
+        public static final String SHOW_SETTINGS_DRAWER = "show_settings_drawer";
+
+        /**
          * Heads up timeout configuration
          * @hide
          */
@@ -7625,11 +7631,7 @@ public final class Settings {
          * Boolean setting. 0 = off, 1 = on.
          * @hide
          */
-<<<<<<< HEAD
         public static final String LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer";
-=======
-        public static final String QS_BATTERY_EASY_TOGGLE = "qs_battery_easy_toggle";
->>>>>>> 800eabdb25c... Settings: Disable Drawer
 
         /**
          * Whether the device should doze if configured.
