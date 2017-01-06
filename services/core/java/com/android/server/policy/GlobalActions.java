@@ -321,35 +321,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
         mItems = new ArrayList<Action>();
 
-        // next: On-The-Go, if enabled
-	ContentResolver resolver = mContext.getContentResolver();
-        boolean showOnTheGo = Settings.System.getInt(
-                resolver, Settings.System.POWER_MENU_ONTHEGO_ENABLED, 0) == 1;
-        if (showOnTheGo) {
-            mItems.add(
-                new SinglePressAction(com.android.internal.R.drawable.ic_lock_onthego,
-                        R.string.global_action_onthego) {
-
-                        public void onPress() {
-                            OnTheGoActions.processAction(mContext,
-                                    OnTheGoActions.ACTION_ONTHEGO_TOGGLE);
-                        }
-
-                        public boolean onLongPress() {
-                            return false;
-                        }
-
-                        public boolean showDuringKeyguard() {
-                            return true;
-                        }
-
-                        public boolean showBeforeProvisioning() {
-                            return true;
-                        }
-                    }
-            );
-        }
-
         String[] defaultActions = mContext.getResources().getStringArray(
                 com.android.internal.R.array.config_globalActionsList);
 
@@ -429,6 +400,35 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
         if (mEmergencyAffordanceManager.needsEmergencyAffordance()) {
             mItems.add(getEmergencyAction());
+        }
+
+        // next: On-The-Go, if enabled
+	ContentResolver resolver = mContext.getContentResolver();
+        boolean showOnTheGo = Settings.System.getInt(
+                resolver, Settings.System.POWER_MENU_ONTHEGO_ENABLED, 0) == 1;
+        if (showOnTheGo) {
+            mItems.add(
+                new SinglePressAction(com.android.internal.R.drawable.ic_lock_onthego,
+                        R.string.global_action_onthego) {
+
+                        public void onPress() {
+                            OnTheGoActions.processAction(mContext,
+                                    OnTheGoActions.ACTION_ONTHEGO_TOGGLE);
+                        }
+
+                        public boolean onLongPress() {
+                            return false;
+                        }
+
+                        public boolean showDuringKeyguard() {
+                            return true;
+                        }
+
+                        public boolean showBeforeProvisioning() {
+                            return true;
+                        }
+                    }
+            );
         }
 
         mAdapter = new MyAdapter();
@@ -848,7 +848,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
     }
 
-<<<<<<< HEAD
     class ScreenshotRunnable implements Runnable {
         private int mScreenshotFullscreen = TAKE_SCREENSHOT_FULLSCREEN;
         private int mScreenshotSelectedRegion = TAKE_SCREENSHOT_SELECTED_REGION;
