@@ -4992,12 +4992,6 @@ public final class Settings {
         public static final String STATUS_BAR_DAYLIGHT_HEADER_PACK = "status_bar_daylight_header_pack";
 
         /**
-         * Current active provider
-         * @hide
-         */
-        public static final String STATUS_BAR_CUSTOM_HEADER_PROVIDER = "status_bar_custom_header_provider";
-
-        /**
          * If On-The-Go should be displayed at the power menu.
          *
          * @hide
@@ -5031,6 +5025,18 @@ public final class Settings {
          * @hide
          */
         public static final String QS_QUICKBAR_SCROLL_ENABLED = "qs_quickbar_scroll_enabled";
+
+        /**
+         * Current active provider - available currently "static" "daylight"
+         * @hide
+         */
+        public static final String STATUS_BAR_CUSTOM_HEADER_PROVIDER = "status_bar_custom_header_provider";
+
+        /**
+         * Manual override picture to use
+         * @hide
+         */
+        public static final String STATUS_BAR_CUSTOM_HEADER_IMAGE = "status_bar_custom_header_image";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
