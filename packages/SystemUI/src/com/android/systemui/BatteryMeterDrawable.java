@@ -754,6 +754,9 @@ public class BatteryMeterDrawable extends Drawable implements
             final BitmapDrawable bd = (BitmapDrawable) d;
             bd.getPaint().set(!mPluggedIn || (mPluggedIn && mShowPercent && !mForceChargeBatteryText)
                                       ? mClearPaint : mTextAndBoltPaint);
+            if (mBoltOverlay) {
+                mBoltDrawable.setTint(getBoltColor());
+            }
         } else {
             d.setAlpha(mPluggedIn && mForceChargeBatteryText ? 255 : 0);
             }
@@ -779,6 +782,9 @@ public class BatteryMeterDrawable extends Drawable implements
             String pctText = String.valueOf(SINGLE_DIGIT_PERCENT ? (level / 10) : level);
             mTextAndBoltPaint.setColor(getColorForLevel(level));
             canvas.drawText(pctText, mTextX, mTextY, mTextAndBoltPaint);
+            if (mBoltOverlay) {
+                mBoltDrawable.setTint(getBoltColor());
+            }
         } else if (level <= mCriticalLevel) {
             // Draw the warning text
             canvas.drawText(mWarningString, mTextX, mTextY, mWarningTextPaint);
