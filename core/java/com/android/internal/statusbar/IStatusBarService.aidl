@@ -81,4 +81,5 @@ interface IStatusBarService
     void screenPinningStateChanged(boolean enabled);
 
     void setAutoRotate(boolean enabled);
+    void restartUI();
 }
