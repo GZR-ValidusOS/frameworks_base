@@ -33,6 +33,7 @@
     <color name="battery_background">#ffffff</color>
     <color name="status">#ffffff</color>
 
+    <color name="alarm_status_color">#E0E0E0</color>
 
     <color name="system_primary_color">#ff263238</color><!-- blue grey 900 -->
 
