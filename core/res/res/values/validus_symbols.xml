@@ -220,4 +220,8 @@
 
   <java-symbol type="layout" name="single_hand_window" />
 
+  <!-- center of screen offsets -->
+  <java-symbol type="integer" name="config_offsetCenterX" />
+  <java-symbol type="integer" name="config_offsetCenterY" />
+
 </resources>
