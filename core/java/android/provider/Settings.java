@@ -4268,13 +4268,6 @@ public final class Settings {
         public static final String POWER_REBOOT_DIALOG_DIM = "power_reboot_dialog_dim";
 
         /**
-         * Volume key controls ringtone or media sound stream
-         * @hide
-         */
-        public static final String VOLUME_KEYS_CONTROL_MEDIA_STREAM =
-                "volume_keys_control_media_stream";
-
-        /**
          * Toast icon
          * @hide
          */
@@ -4293,6 +4286,13 @@ public final class Settings {
          * @hide
          */
         public static final String MEDIA_SCANNER_ON_BOOT = "media_scanner_on_boot";
+
+        /**
+         * Whether to mute annoying notifications
+         * @hide
+         */
+        public static final String MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD =
+                "mute_annoying_notifications_threshold";
 
         /**
          * Change quick settings tiles animation style
