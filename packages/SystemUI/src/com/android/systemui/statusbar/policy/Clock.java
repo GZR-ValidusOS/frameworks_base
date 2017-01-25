@@ -301,7 +301,7 @@ public class Clock extends TextView implements DemoMode {
 
         // replace seconds directly in format, not in result
         if (Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.CLOCK_USE_SECOND, 0) == 1) {
+                Settings.System.STATUS_BAR_CLOCK_SECONDS, 0) == 1) {
             String temp = format;
             format = temp.replaceFirst("mm","mm:ss");
         }
