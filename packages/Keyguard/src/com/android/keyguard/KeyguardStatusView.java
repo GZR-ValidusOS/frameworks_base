@@ -84,9 +84,8 @@ public class KeyguardStatusView extends GridLayout implements
 
         @Override
         public void onTimeChanged() {
-            if (enableRefresh) {
-                refresh();
-            }
+            refresh();
+            refreshClockColors();
         }
 
         @Override
@@ -95,6 +94,7 @@ public class KeyguardStatusView extends GridLayout implements
                 if (DEBUG) Slog.v(TAG, "refresh statusview showing:" + showing);
                 refresh();
                 updateOwnerInfo();
+                refreshClockColors();
             }
         }
 
@@ -115,6 +115,7 @@ public class KeyguardStatusView extends GridLayout implements
         public void onUserSwitchComplete(int userId) {
             refresh();
             updateOwnerInfo();
+            refreshClockColors();
         }
     };
 
@@ -157,6 +158,7 @@ public class KeyguardStatusView extends GridLayout implements
         boolean shouldMarquee = KeyguardUpdateMonitor.getInstance(mContext).isDeviceInteractive();
         setEnableMarquee(shouldMarquee);
         refresh();
+        refreshClockColors();
         updateOwnerInfo();
 
         // Disable elegant text height because our fancy colon makes the ymin value huge for no
