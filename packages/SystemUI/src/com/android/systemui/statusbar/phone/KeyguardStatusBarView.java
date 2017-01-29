@@ -511,7 +511,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
 		Settings.System.STATUS_BAR_SHOW_CARRIER), false, mObserver);
         getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                "status_bar_carrier_font_style"), false, mObserver);
+                Settings.System.STATUS_BAR_CARRIER_FONT_STYLE), false, mObserver);
     }
 
     @Override
