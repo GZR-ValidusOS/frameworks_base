@@ -85,6 +85,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
     private BatteryMeterView mBatteryMeterViewKeyguard;
     private NetworkTraffic mNetworkTraffic;
     private TextView mCarrierLabel;
+    private int mCarrierLabelColor;
 
     // Center & Left clock
     private Clock mClock;
@@ -162,7 +163,6 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mNetworkTraffic = (NetworkTraffic) statusBar.findViewById(R.id.networkTraffic);
 
         mCarrierLabel = (TextView) statusBar.findViewById(R.id.statusbar_carrier_text);
-
         mValidusLogo = (ImageView) statusBar.findViewById(R.id.validus_logo);
 	mWeather = (TextView) statusBar.findViewById(R.id.weather_temp);
 	mWeatherLeft = (TextView) statusBar.findViewById(R.id.left_weather_temp);
@@ -619,7 +619,13 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mCenterClock.setTextColor(getTint(mTintArea, mCenterClock, mIconTint));
         mLeftClock.setTextColor(getTint(mTintArea, mLeftClock, mIconTint));
         mNetworkTraffic.setDarkIntensity(mDarkIntensity);
-        mCarrierLabel.setTextColor(getTint(mTintArea, mCarrierLabel, mIconTint));
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_CARRIER_COLOR,
+                mContext.getResources().getColor(R.color.status_bar_clock_color),
+                UserHandle.USER_CURRENT) == mContext.getResources().
+                getColor(R.color.status_bar_clock_color)) {
+            mCarrierLabel.setTextColor(mIconTint);
+        }
         mValidusLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
         mBatteryLevelView.setTextColor(getTint(mTintArea, mBatteryLevelView, mIconTint));
         if (Settings.System.getIntForUser(mContext.getContentResolver(),

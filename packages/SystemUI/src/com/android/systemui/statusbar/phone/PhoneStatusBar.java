@@ -311,6 +311,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
      * This affects the status bar UI. */
     private static final boolean FREEFORM_WINDOW_MANAGEMENT;
 
+    private int mCarrierLabelColor;
     private int mCarrierLabelFontStyle = FONT_NORMAL;
     public static final int FONT_NORMAL = 0;
     public static final int FONT_ITALIC = 1;
@@ -610,6 +611,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
            resolver.registerContentObserver(Settings.System.getUriFor(
 		   Settings.System.STATUS_BAR_CARRIER_FONT_STYLE),
                    false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+	           Settings.System.STATUS_BAR_CARRIER_COLOR),
+                    false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.Secure.getUriFor(
                   Settings.Secure.LOCK_QS_DISABLED),
                   false, this, UserHandle.USER_ALL);
@@ -714,6 +718,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     updateSettings();
                     updateCarrier(); 
            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CARRIER_COLOR))) {
+                    updateCarrier();
+                    updateResources();
+           } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.NAV_BAR_DYNAMIC))) {
                     mNavigationController.updateNavbarOverlay(mContext.getResources());
            } else if (uri.equals(Settings.System.getUriFor(
@@ -764,8 +772,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_SHOW_CARRIER, 1, UserHandle.USER_CURRENT);
             
             mCarrierLabelFontStyle = Settings.System.getIntForUser(resolver,
-                Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, FONT_NORMAL,
-                UserHandle.USER_CURRENT);
+                    Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, FONT_NORMAL,
+                    UserHandle.USER_CURRENT);
+
+            mCarrierLabelColor = Settings.System.getIntForUser(mContext.getContentResolver(),
+		    Settings.System.STATUS_BAR_CARRIER_COLOR,  0xFFFFFFFF, mCurrentUserId);
 
             mWeatherTempState = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP, 0,
@@ -845,11 +856,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             RecentsActivity.updateRadiusScale(mScaleRecents,mRadiusRecents);
           }
        }
-
-     private void showStatusBarCarrier() {
-        ContentResolver resolver = mContext.getContentResolver();
-
-    }
 
      private void updateWeatherTextState(String temp, int size, int font ,int color) {
         if (mWeatherTempState == 0 || TextUtils.isEmpty(temp)) {
