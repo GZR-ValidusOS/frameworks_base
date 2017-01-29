@@ -311,7 +311,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
      * This affects the status bar UI. */
     private static final boolean FREEFORM_WINDOW_MANAGEMENT;
 
-    // Weather temperature
+    private int mCarrierLabelFontStyle = FONT_NORMAL;
     public static final int FONT_NORMAL = 0;
     public static final int FONT_ITALIC = 1;
     public static final int FONT_BOLD = 2;
@@ -601,97 +601,100 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.QS_ROWS_LANDSCAPE),
                   false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.STATUS_BAR_VALIDUS_LOGO),
                   false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.STATUS_BAR_SHOW_CARRIER),
                   false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.Secure.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
+		   Settings.System.STATUS_BAR_CARRIER_FONT_STYLE),
+                   false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.Secure.getUriFor(
                   Settings.Secure.LOCK_QS_DISABLED),
                   false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL),
                   false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.SCREEN_BRIGHTNESS_MODE),
                   false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.NAV_BAR_DYNAMIC),
                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.NAVBAR_TINT_SWITCH),
                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.NAVBAR_BUTTON_COLOR),
                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.BLUR_SCALE_PREFERENCE_KEY), 
                    false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.BLUR_RADIUS_PREFERENCE_KEY), 
                    false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.TRANSLUCENT_QUICK_SETTINGS_PREFERENCE_KEY), 
                    false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.STATUS_BAR_EXPANDED_ENABLED_PREFERENCE_KEY), 
                    false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.TRANSLUCENT_NOTIFICATIONS_PREFERENCE_KEY), 
                    false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.TRANSLUCENT_QUICK_SETTINGS_PRECENTAGE_PREFERENCE_KEY), 
                    false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.TRANSLUCENT_NOTIFICATIONS_PRECENTAGE_PREFERENCE_KEY), 
                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.RECENT_APPS_ENABLED_PREFERENCE_KEY), 
                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.RECENT_APPS_SCALE_PREFERENCE_KEY), 
                    false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                    Settings.System.RECENT_APPS_RADIUS_PREFERENCE_KEY), 
                    false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BLUR_DARK_COLOR_PREFERENCE_KEY), 
                     false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BLUR_LIGHT_COLOR_PREFERENCE_KEY), 
                     false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BLUR_MIXED_COLOR_PREFERENCE_KEY), 
                     false, this);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
+	   resolver.registerContentObserver(Settings.System.getUriFor(
 		    Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP),
 		    false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
+	   resolver.registerContentObserver(Settings.System.getUriFor(
 		    Settings.System.STATUS_BAR_WEATHER_SIZE),
 		    false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
+	   resolver.registerContentObserver(Settings.System.getUriFor(
 		    Settings.System.STATUS_BAR_WEATHER_FONT_STYLE),
 		    false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
+	   resolver.registerContentObserver(Settings.System.getUriFor(
 		    Settings.System.STATUS_BAR_WEATHER_COLOR),
 		    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE),
                     false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CUSTOM_HEADER_SHADOW),
                     false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CUSTOM_HEADER),
                     false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_QUICKBAR_SCROLL_ENABLED),
                     false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
+           resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_SHOW_TICKER),
                     false, this, UserHandle.USER_ALL);
-            updateSettings();
+           updateSettings();
         }
 
         @Override
@@ -705,7 +708,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_SHOW_CARRIER))) {
                     updateSettings();
-                    updateCarrier();            
+                    updateCarrier();   
+           } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CARRIER_FONT_STYLE))) {
+                    updateSettings();
+                    updateCarrier(); 
            } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.NAV_BAR_DYNAMIC))) {
                     mNavigationController.updateNavbarOverlay(mContext.getResources());
@@ -753,6 +760,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_VALIDUS_LOGO, 0, mCurrentUserId) == 1;
             showValidusLogo(mValidusLogo);
 
+            mShowCarrierLabel = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_SHOW_CARRIER, 1, UserHandle.USER_CURRENT);
+            
+            mCarrierLabelFontStyle = Settings.System.getIntForUser(resolver,
+                Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, FONT_NORMAL,
+                UserHandle.USER_CURRENT);
+
             mWeatherTempState = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP, 0,
                     UserHandle.USER_CURRENT);
@@ -767,13 +781,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_WEATHER_COLOR, 0xFFFFFFFF, mCurrentUserId);
 
             mWeatherTempStyle = Settings.System.getIntForUser(mContext.getContentResolver(), 
-                               Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE, 0,
+                    Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE, 0,
                     UserHandle.USER_CURRENT);
-
-			updateTempView();
-
-            mShowCarrierLabel = Settings.System.getIntForUser(resolver,
-                    Settings.System.STATUS_BAR_SHOW_CARRIER, 1, UserHandle.USER_CURRENT);
+            updateTempView();
 
             mQsLayoutColumns = Settings.System.getIntForUser(resolver,
                     Settings.System.QS_LAYOUT_COLUMNS, 3, mCurrentUserId);
@@ -836,7 +846,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
           }
        }
 
-  private void updateWeatherTextState(String temp, int size, int font ,int color) {
+     private void showStatusBarCarrier() {
+        ContentResolver resolver = mContext.getContentResolver();
+
+    }
+
+     private void updateWeatherTextState(String temp, int size, int font ,int color) {
         if (mWeatherTempState == 0 || TextUtils.isEmpty(temp)) {
             mWeatherTempView.setVisibility(View.GONE);
             return;
@@ -2679,6 +2694,114 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
             } else {
                 mCarrierLabel.setVisibility(View.GONE);
             }
+            getFontStyle(mCarrierLabelFontStyle);
+
+        }
+    }
+
+    public void getFontStyle(int font) {
+         switch (font) {
+            case FONT_NORMAL:
+            default:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif",
+                    Typeface.NORMAL));
+                break;
+            case FONT_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif",
+                    Typeface.ITALIC));
+                break;
+            case FONT_BOLD:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif",
+                    Typeface.BOLD));
+                break;
+            case FONT_BOLD_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif",
+                    Typeface.BOLD_ITALIC));
+                break;
+            case FONT_LIGHT:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-light",
+                    Typeface.NORMAL));
+                break;
+            case FONT_LIGHT_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-light",
+                    Typeface.ITALIC));
+                break;
+            case FONT_THIN:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-thin",
+                    Typeface.NORMAL));
+                break;
+            case FONT_THIN_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-thin",
+                    Typeface.ITALIC));
+                break;
+            case FONT_CONDENSED:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-condensed",
+                    Typeface.NORMAL));
+                break;
+            case FONT_CONDENSED_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-condensed",
+                    Typeface.ITALIC));
+                break;
+            case FONT_CONDENSED_LIGHT:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-condensed-light",
+                    Typeface.NORMAL));
+                break;
+            case FONT_CONDENSED_LIGHT_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-condensed-light",
+                    Typeface.ITALIC));
+                break;
+            case FONT_CONDENSED_BOLD:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-condensed",
+                    Typeface.BOLD));
+                break;
+            case FONT_CONDENSED_BOLD_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-condensed",
+                    Typeface.BOLD_ITALIC));
+                break;
+            case FONT_MEDIUM:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-medium",
+                    Typeface.NORMAL));
+                break;
+            case FONT_MEDIUM_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-medium",
+                    Typeface.ITALIC));
+                break;
+            case FONT_BLACK:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-black",
+                    Typeface.NORMAL));
+                break;
+            case FONT_BLACK_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("sans-serif-black",
+                    Typeface.ITALIC));
+                break;
+            case FONT_DANCINGSCRIPT:
+                mCarrierLabel.setTypeface(Typeface.create("cursive",
+                    Typeface.NORMAL));
+                break;
+            case FONT_DANCINGSCRIPT_BOLD:
+                mCarrierLabel.setTypeface(Typeface.create("cursive",
+                    Typeface.BOLD));
+                break;
+            case FONT_COMINGSOON:
+                mCarrierLabel.setTypeface(Typeface.create("casual",
+                    Typeface.NORMAL));
+                break;
+            case FONT_NOTOSERIF:
+                mCarrierLabel.setTypeface(Typeface.create("serif",
+                    Typeface.NORMAL));
+                break;
+            case FONT_NOTOSERIF_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("serif",
+                    Typeface.ITALIC));
+                break;
+            case FONT_NOTOSERIF_BOLD:
+                mCarrierLabel.setTypeface(Typeface.create("serif",
+                    Typeface.BOLD));
+                break;
+            case FONT_NOTOSERIF_BOLD_ITALIC:
+                mCarrierLabel.setTypeface(Typeface.create("serif",
+                    Typeface.BOLD_ITALIC));
+                break;
         }
     }
 
