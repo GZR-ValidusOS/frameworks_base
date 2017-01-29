@@ -49,6 +49,7 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <!-- Header -->
     <style name="TextAppearance.StatusBar.Expanded.Clock.Shadow" parent="TextAppearance.StatusBar.Expanded.Clock" >
         <item name="android:shadowColor">@android:color/black</item>
         <item name="android:shadowDx">1</item>
@@ -61,6 +62,14 @@
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">4</item>
+    </style>
+
+    <!-- Carrier -->
+    <style name="TextAppearance.StatusBar.CarrierLabel.Shadow" parent="TextAppearance.StatusBar.CarrierLabel" >
+        <item name="android:shadowColor">@android:color/black</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">5</item>
     </style>
 
 </resources>
