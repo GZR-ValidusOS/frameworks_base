@@ -116,6 +116,7 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     private boolean hasEdit;
     private boolean hasExpandIndicator;
     private boolean hasMultiUserSwitch;
+    private boolean hasRunningServicesButton;
     private boolean mDateTimeGroupCenter;
 
     // omni additions
@@ -345,7 +346,8 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         mEdit.setVisibility(hasEdit && !isDemo && mExpanded ? View.VISIBLE : View.GONE);
         hasSettingsIcon = !isSettingsIconDisabled();
         mSettingsButton.setVisibility(hasSettingsIcon ? View.VISIBLE : View.GONE);
-        mRunningServicesButton.setVisibility(View.VISIBLE);
+        hasRunningServicesButton = !isRunningServicesButtonDisabled();
+        mRunningServicesButton.setVisibility(hasRunningServicesButton ? View.VISIBLE : View.GONE);
         hasExpandIndicator = !isExpandIndicatorDisabled();
         mExpandIndicator.setVisibility(hasExpandIndicator ? View.VISIBLE : View.GONE);
     }
@@ -535,6 +537,11 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     public boolean isDateTimeGroupCenter() {
         return Settings.System.getInt(mContext.getContentResolver(),
             Settings.System.QS_DATE_TIME_CENTER, 1) == 1;
+    }
+
+    public boolean isRunningServicesButtonDisabled() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.QS_RUNNING_SERVICES_TOGGLE, 0) == 1;
     }
 
     @Override
