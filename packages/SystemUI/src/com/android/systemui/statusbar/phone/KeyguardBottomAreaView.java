@@ -908,6 +908,6 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
 
     private boolean hideShortcuts() {
         return (Settings.Secure.getIntForUser(getContext().getContentResolver(),
-                Settings.Secure.HIDE_LOCKSCREEN_SHORTCUTS, 1, UserHandle.USER_CURRENT) == 1);
+                Settings.Secure.HIDE_LOCKSCREEN_SHORTCUTS, 0, UserHandle.USER_CURRENT) == 0);
     }
 }

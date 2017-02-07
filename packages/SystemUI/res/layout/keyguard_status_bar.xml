@@ -93,4 +93,6 @@
         android:textAppearance="@style/TextAppearance.StatusBar.CarrierLabel.Shadow"
         android:background="?android:attr/selectableItemBackgroundBorderless" />
 
+    </LinearLayout>
+
 </com.android.systemui.statusbar.phone.KeyguardStatusBarView>

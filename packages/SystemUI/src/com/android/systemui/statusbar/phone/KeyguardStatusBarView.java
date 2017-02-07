@@ -120,6 +120,7 @@ public class KeyguardStatusBarView extends RelativeLayout
     public KeyguardStatusBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         showStatusBarCarrier();
+        showKeyguardClock();
     }
 
     private void showStatusBarCarrier() {
@@ -133,7 +134,7 @@ public class KeyguardStatusBarView extends RelativeLayout
 
     private void showKeyguardClock() {
         int mShowKeyguardClock = Settings.System.getIntForUser(getContext().getContentResolver(),
-                Settings.Secure.KEYGUARD_SHOW_CLOCK, 1, UserHandle.USER_CURRENT);
+                Settings.System.KEYGUARD_SHOW_CLOCK, 1, UserHandle.USER_CURRENT);
     }
 
     @Override
@@ -240,7 +241,7 @@ public class KeyguardStatusBarView extends RelativeLayout
             }
         }
             if (Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.Secure.KEYGUARD_SHOW_CLOCK, 0) == 1) {
+                    Settings.System.KEYGUARD_SHOW_CLOCK, 0) == 1) {
                 mKeyguardClock.setVisibility(View.VISIBLE);
             } else {
                 mKeyguardClock.setVisibility(View.GONE);
@@ -262,7 +263,6 @@ public class KeyguardStatusBarView extends RelativeLayout
                 }
             }
             getFontStyle(mCarrierLabelFontStyle);
-            }
         }
 
     public void getFontStyle(int font) {
@@ -535,7 +535,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
                 Settings.System.STATUS_BAR_CARRIER_FONT_STYLE), false, mObserver);
         getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                Settings.Secure.KEYGUARD_SHOW_CLOCK), false, mObserver);
+                Settings.System.KEYGUARD_SHOW_CLOCK), false, mObserver);
     }
 
     @Override
