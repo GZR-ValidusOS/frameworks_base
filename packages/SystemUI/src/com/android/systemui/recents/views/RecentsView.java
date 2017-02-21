@@ -342,7 +342,7 @@ public class RecentsView extends FrameLayout {
         RecentsConfiguration config = Recents.getConfiguration();
         // Animate the action button in
         mFloatingButton = ((View)getParent()).findViewById(R.id.floating_action_button);
-        mFloatingButton.animate().alpha(1f)
+        mFloatingButton.animate().alpha(0.6f)
                 .setStartDelay(config.fabEnterAnimDelay)
                 .setDuration(config.fabEnterAnimDuration)
                 .setInterpolator(Interpolators.ALPHA_IN)
