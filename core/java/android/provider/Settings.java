@@ -4129,6 +4129,12 @@ public final class Settings {
         public static final String SHOW_SETTINGS_DRAWER = "show_settings_drawer";
 
         /**
+         * Whether to show the IME switcher in the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_IME_SWITCHER = "status_bar_ime_switcher";
+
+        /**
          * Heads up timeout configuration
          * @hide
          */
