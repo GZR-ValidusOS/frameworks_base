@@ -630,7 +630,7 @@ public class RecentController implements RecentPanelView.OnExitListener,
 
             // Update colors in RecentPanelView
             mPanelColor = Settings.System.getIntForUser(resolver,
-                    Settings.System.RECENT_PANEL_BG_COLOR, 0x00ffffff, UserHandle.USER_CURRENT);
+                    Settings.System.RECENT_PANEL_BG_COLOR, 0x76009688, UserHandle.USER_CURRENT);
 
             // Set main gravity and background images.
             setGravityAndImageResources();
