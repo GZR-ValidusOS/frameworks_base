@@ -766,6 +766,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                         Settings.System.STATUS_BAR_SHOW_TICKER,
                         0, UserHandle.USER_CURRENT) == 1;
                 initTickerView();
+            }
             updateSettings();
         }
 
