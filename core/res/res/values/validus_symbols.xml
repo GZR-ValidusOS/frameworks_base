@@ -239,4 +239,6 @@
   <!-- High Brightness Mode -->
   <java-symbol type="bool" name="config_supportHighBrightness" />
 
+  <!-- Whether to enable HumanInteractionController by default -->
+  <java-symbol type="bool" name="config_HICEnabledDefault" />
 </resources>

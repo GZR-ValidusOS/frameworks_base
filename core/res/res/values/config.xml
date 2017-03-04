@@ -17,6 +17,7 @@
 */
 -->
 
+
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds.  Do not translate.
 
@@ -2676,4 +2677,6 @@
     <integer name="config_offsetCenterX">0</integer>
     <integer name="config_offsetCenterY">0</integer>
 
+    <!-- Whether to enable HumanInteractionController by default -->	
+    <bool name="config_HICEnabledDefault">true</bool>
 </resources>
