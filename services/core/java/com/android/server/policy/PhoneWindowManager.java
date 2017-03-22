@@ -2349,13 +2349,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mTorchEnabled = (Settings.System.getIntForUser(resolver,
                     Settings.System.KEYGUARD_TOGGLE_TORCH, 0, UserHandle.USER_CURRENT) == 1);
 
-<<<<<<< HEAD
             // pa pie
             mPieState = (Settings.System.getIntForUser(resolver,
                     Settings.System.PA_PIE_STATE, 0, UserHandle.USER_CURRENT) == 1);
 
-=======
->>>>>>> 0b209048457... Add hook to handle multi window dock events better
+
             mOmniSwitchRecents = (Settings.System.getIntForUser(resolver,
                     Settings.System.RECENTS_USE_OMNISWITCH, 0, UserHandle.USER_CURRENT) == 1);
 
