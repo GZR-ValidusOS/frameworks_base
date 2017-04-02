@@ -2971,6 +2971,9 @@ String8 ResTable_config::toString() const {
             case ResTable_config::UI_MODE_NIGHT_YES:
                 res.append("night");
                 break;
+            case ResTable_config::UI_MODE_NIGHT_RETRO:
+                res.append("retro");
+                break;
             default:
                 res.appendFormat("uiModeNight=%d",
                         dtohs(uiMode&MASK_UI_MODE_NIGHT));
