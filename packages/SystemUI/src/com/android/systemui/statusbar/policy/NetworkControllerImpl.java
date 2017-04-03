@@ -809,8 +809,10 @@ public class NetworkControllerImpl extends BroadcastReceiver
                             datatype.equals("h") ? TelephonyIcons.H :
                             datatype.equals("lte") ? TelephonyIcons.LTE :
                             datatype.equals("lte+") ? TelephonyIcons.LTE_PLUS :
-                            datatype.equals("roam") ? TelephonyIcons.ROAMING :
                             TelephonyIcons.UNKNOWN;
+                }
+                if (args.containsKey("roam")) {
+                    controller.getState().roaming = "show".equals(args.getString("roam"));
                 }
                 int[][] icons = TelephonyIcons.TELEPHONY_SIGNAL_STRENGTH;
                 String level = args.getString("level");
@@ -838,6 +840,9 @@ public class NetworkControllerImpl extends BroadcastReceiver
                     }
                 } else {
                     controller.setActivity(TelephonyManager.DATA_ACTIVITY_NONE);
+                }
+                if (activity != null) {
+                    controller.setActivity(Integer.parseInt(activity));
                 }
                 controller.getState().enabled = show;
                 controller.notifyListeners();

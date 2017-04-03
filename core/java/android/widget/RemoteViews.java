@@ -387,6 +387,7 @@ public class RemoteViews implements Parcelable, Filter {
         // Because pruning can remove the need for bitmaps, we reconstruct the bitmap cache
         mBitmapCache = new BitmapCache();
         setBitmapCache(mBitmapCache);
+        recalculateMemoryUsage();
     }
 
     private class SetEmptyView extends Action {
@@ -2054,26 +2055,8 @@ public class RemoteViews implements Parcelable, Filter {
             return mMemoryUsage;
         }
 
-        @SuppressWarnings("deprecation")
         public void addBitmapMemory(Bitmap b) {
-            final Bitmap.Config c = b.getConfig();
-            // If we don't know, be pessimistic and assume 4
-            int bpp = 4;
-            if (c != null) {
-                switch (c) {
-                    case ALPHA_8:
-                        bpp = 1;
-                        break;
-                    case RGB_565:
-                    case ARGB_4444:
-                        bpp = 2;
-                        break;
-                    case ARGB_8888:
-                        bpp = 4;
-                        break;
-                }
-            }
-            increment(b.getWidth() * b.getHeight() * bpp);
+            increment(b.getAllocationByteCount());
         }
 
         int mMemoryUsage;
@@ -2648,8 +2631,8 @@ public class RemoteViews implements Parcelable, Filter {
      *
      * When setting the on-click action of items within collections (eg. {@link ListView},
      * {@link StackView} etc.), this method will not work. Instead, use {@link
-     * RemoteViews#setPendingIntentTemplate(int, PendingIntent) in conjunction with
-     * RemoteViews#setOnClickFillInIntent(int, Intent).
+     * RemoteViews#setPendingIntentTemplate(int, PendingIntent)} in conjunction with
+     * {@link RemoteViews#setOnClickFillInIntent(int, Intent)}.
      *
      * @param viewId The id of the view that will trigger the {@link PendingIntent} when clicked
      * @param pendingIntent The {@link PendingIntent} to send when user clicks
@@ -3234,7 +3217,7 @@ public class RemoteViews implements Parcelable, Filter {
      * Applies the views asynchronously, moving as much of the task on the background
      * thread as possible.
      *
-     * @see {@link #apply(Context, ViewGroup)}
+     * @see #apply(Context, ViewGroup)
      * @param context Default context to use
      * @param parent Parent that the resulting view hierarchy will be attached to. This method
      * does <strong>not</strong> attach the hierarchy. The caller should do so when appropriate.
@@ -3389,7 +3372,7 @@ public class RemoteViews implements Parcelable, Filter {
      * Applies all the actions to the provided view, moving as much of the task on the background
      * thread as possible.
      *
-     * @see {@link #reapply(Context, View)}
+     * @see #reapply(Context, View)
      * @param context Default context to use
      * @param v The view to apply the actions to.  This should be the result of
      * the {@link #apply(Context,ViewGroup)} call.
