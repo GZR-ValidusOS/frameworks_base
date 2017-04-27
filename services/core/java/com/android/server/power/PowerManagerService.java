@@ -876,7 +876,6 @@ public final class PowerManagerService extends SystemService
             }
         }
 
-<<<<<<< HEAD
        if (mSupportsHighBrightnessModeConfig) {
             boolean highBrightnessModeEnabled = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.HIGH_BRIGHTNESS_MODE, DEFAULT_HIGH_BRIGHTNESS_MODE,
@@ -887,15 +886,12 @@ public final class PowerManagerService extends SystemService
             }
         }
 
-        final int oldScreenBrightnessSetting = mScreenBrightnessSetting;
-=======
         final int oldScreenBrightnessSetting = getCurrentBrightnessSettingLocked();
 
         mScreenBrightnessForVrSetting = Settings.System.getIntForUser(resolver,
                 Settings.System.SCREEN_BRIGHTNESS_FOR_VR, mScreenBrightnessForVrSettingDefault,
                 UserHandle.USER_CURRENT);
 
->>>>>>> 8d6c096... Merge tag 'android-7.1.2_r5' of https://android.googlesource.com/platform//frameworks/base into HEAD
         mScreenBrightnessSetting = Settings.System.getIntForUser(resolver,
                 Settings.System.SCREEN_BRIGHTNESS, mScreenBrightnessSettingDefault,
                 UserHandle.USER_CURRENT);
@@ -3167,11 +3163,8 @@ public final class PowerManagerService extends SystemService
                     + mScreenBrightnessForVrSettingDefault);
             pw.println("  mScreenBrightnessForVrSetting=" + mScreenBrightnessForVrSetting);
             pw.println("  mDoubleTapWakeEnabled=" + mDoubleTapWakeEnabled);
-<<<<<<< HEAD
             pw.println("  mHighBrightnessModeEnabled=" + mHighBrightnessModeEnabled);
-=======
             pw.println("  mIsVrModeEnabled=" + mIsVrModeEnabled);
->>>>>>> 8d6c096... Merge tag 'android-7.1.2_r5' of https://android.googlesource.com/platform//frameworks/base into HEAD
 
             final int sleepTimeout = getSleepTimeoutLocked();
             final int screenOffTimeout = getScreenOffTimeoutLocked(sleepTimeout);
