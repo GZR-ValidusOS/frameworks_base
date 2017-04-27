@@ -3436,8 +3436,8 @@ class AppWidgetServiceImpl extends IAppWidgetService.Stub implements WidgetBacku
                     args.recycle();
 
                     synchronized (mLock) {
-                        handleNotifyUpdateAppWidgetLocked(host, callbacks, appWidgetId, 
-                    handleNotifyUpdateAppWidget(host, callbacks, appWidgetId, views, requestId);
+                        handleNotifyUpdateAppWidget(host, callbacks, appWidgetId, views, requestId);
+                    }
                 } break;
 
                 case MSG_NOTIFY_PROVIDER_CHANGED: {
