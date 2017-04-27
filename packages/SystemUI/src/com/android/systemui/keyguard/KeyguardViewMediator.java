@@ -1494,8 +1494,6 @@ public class KeyguardViewMediator extends SystemUI {
                 context.sendBroadcast(new Intent(
                         LockscreenToggleTile.ACTION_APPLY_LOCKSCREEN_STATE)
                         .setPackage(context.getPackageName()));
-                    }
-                }
             } else if (Intent.ACTION_SHUTDOWN.equals(intent.getAction())) {
                 synchronized (KeyguardViewMediator.this){
                     mShuttingDown = true;
