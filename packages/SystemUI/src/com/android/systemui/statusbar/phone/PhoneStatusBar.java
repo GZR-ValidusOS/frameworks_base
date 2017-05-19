@@ -5615,14 +5615,12 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
     protected void updateKeyguardState(boolean goingToFullShade, boolean fromShadeLocked) {
         Trace.beginSection("PhoneStatusBar#updateKeyguardState");
         if (mState == StatusBarState.KEYGUARD) {
-            mKeyguardIndicationController.setVisible(true);
             mNotificationPanel.resetViews();
             if (mKeyguardUserSwitcher != null) {
                 mKeyguardUserSwitcher.setKeyguard(true, fromShadeLocked);
             }
             mStatusBarView.removePendingHideExpandedRunnables();
         } else {
-            mKeyguardIndicationController.setVisible(false);
             if (mKeyguardUserSwitcher != null) {
                 mKeyguardUserSwitcher.setKeyguard(false,
                         goingToFullShade ||
@@ -5631,8 +5629,10 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
             }
         }
         if (mState == StatusBarState.KEYGUARD || mState == StatusBarState.SHADE_LOCKED) {
+            mKeyguardIndicationController.setVisible(true);
             mScrimController.setKeyguardShowing(true);
         } else {
+            mKeyguardIndicationController.setVisible(false);
             mScrimController.setKeyguardShowing(false);
         }
         mIconPolicy.notifyKeyguardShowingChanged();
