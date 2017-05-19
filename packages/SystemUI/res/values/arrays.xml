@@ -28,4 +28,14 @@
         <item>@color/battery_charge_level_low_level</item>
         <item>@color/battery_charge_level_on_normal_statusbar</item>
     </array>
+
+    <!-- Validus Logo -->
+    <string-array name="status_bar_validus_logo_style_entries">
+        <item>The Wolf Look</item>
+    </string-array>
+
+    <string-array name="status_bar_validus_logo_style_values" translatable="false">
+        <item>0</item>
+    </string-array>
+
 </resources>

@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v14.preference.PreferenceFragment;
 import android.support.v14.preference.SwitchPreference;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceScreen;
@@ -31,13 +32,16 @@ import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.systemui.R;
 
-public class TunerFragment extends PreferenceFragment {
+public class TunerFragment extends PreferenceFragment 
+	implements OnPreferenceChangeListener {
 
     private static final String TAG = "TunerFragment";
 
     private static final String STATUS_BAR_VALIDUS_LOGO = "status_bar_validus_logo";
+    private static final String STATUS_BAR_VALIDUS_LOGO_STYLE = "status_bar_validus_logo_style";
 
     private SwitchPreference mValidusLogo;
+    private ListPreference mValidusLogoStyle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,12 @@ public class TunerFragment extends PreferenceFragment {
         mValidusLogo = (SwitchPreference) findPreference(STATUS_BAR_VALIDUS_LOGO);
         mValidusLogo.setChecked((Settings.System.getInt(resolver,
                 Settings.System.STATUS_BAR_VALIDUS_LOGO, 0) == 1));
+
+        mValidusLogoStyle = (ListPreference) findPreference(STATUS_BAR_VALIDUS_LOGO_STYLE);
+        mValidusLogoStyle.setOnPreferenceChangeListener(this);
+        mValidusLogoStyle.setValue(Integer.toString(Settings.System.getInt(resolver,
+                Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, 0)));
+        mValidusLogoStyle.setSummary(mValidusLogoStyle.getEntry());
     }
 
     @Override
@@ -79,6 +89,20 @@ public class TunerFragment extends PreferenceFragment {
         super.onPause();
 
         MetricsLogger.visibility(getContext(), MetricsEvent.TUNER, false);
+    }
+
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+	ContentResolver resolver = getActivity().getContentResolver();
+
+	if (preference == mValidusLogoStyle) {
+	    int val = Integer.parseInt((String) newValue);
+	    int index = mValidusLogoStyle.findIndexOfValue((String) newValue);
+	    Settings.System.putInt(resolver,
+		    Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, val);
+	    mValidusLogoStyle.setSummary(mValidusLogoStyle.getEntries()[index]);
+	    return true;
+	}
+	return false;
     }
 
     @Override

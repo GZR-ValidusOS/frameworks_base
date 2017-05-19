@@ -505,6 +505,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     // Validus logo
     private boolean mValidusLogo;
     private ImageView validusLogo;
+    private int mValidusLogoStyle;
 
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
@@ -620,6 +621,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.STATUS_BAR_VALIDUS_LOGO),
                   false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE),
+                    false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.STATUS_BAR_SHOW_CARRIER),
                   false, this, UserHandle.USER_ALL);
@@ -784,6 +788,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
             mValidusLogo = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_VALIDUS_LOGO, 0, mCurrentUserId) == 1;
+            mValidusLogoStyle = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, 0, UserHandle.USER_CURRENT);
             showValidusLogo(mValidusLogo);
 
             mClockLocation = Settings.System.getIntForUser(
@@ -4722,10 +4728,28 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
     }
 
     public void showValidusLogo(boolean show) {
+          Drawable logo = null;
+
           if (mStatusBarView == null) return;
           ContentResolver resolver = mContext.getContentResolver();
+
+          switch(mValidusLogoStyle) {
+              case 0:
+              default:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_validus_logo);
+                  break;
+          }
+
           validusLogo = (ImageView) mStatusBarView.findViewById(R.id.validus_logo);
           if (validusLogo != null) {
+              if (logo == null) {
+                  // Something wrong. Do not show anything
+                  validusLogo.setImageDrawable(logo);
+                  validusLogo.setVisibility(View.GONE);
+                  return;
+              }
+
+              validusLogo.setImageDrawable(logo);
               validusLogo.setVisibility(show ? (mValidusLogo ? View.VISIBLE : View.GONE) : View.GONE);
           }
      }
