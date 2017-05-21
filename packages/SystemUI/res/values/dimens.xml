@@ -399,7 +399,10 @@
     <dimen name="framed_avatar_size">54dp</dimen>
 
     <!-- Margin on the left side of the carrier text on Keyguard -->
-    <dimen name="keyguard_carrier_text_margin">16dp</dimen>
+    <dimen name="keyguard_carrier_text_margin">8dp</dimen>
+
+    <!-- Margin on the left side of the validus logo on Keyguard -->
+    <dimen name="keyguard_validus_logo_margin">8dp</dimen>
 
     <!-- Margin on the left side of the battery % in the header. -->
     <dimen name="header_battery_margin_expanded">4dp</dimen>

@@ -787,7 +787,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             ContentResolver resolver = mContext.getContentResolver();
 
             mValidusLogo = Settings.System.getIntForUser(resolver,
-                    Settings.System.STATUS_BAR_VALIDUS_LOGO, 0, mCurrentUserId) == 1;
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO, 0, UserHandle.USER_CURRENT) == 1;
             mValidusLogoStyle = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, 0, UserHandle.USER_CURRENT);
             showValidusLogo(mValidusLogo);
@@ -1529,6 +1529,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mCarrierLabel = (TextView) mStatusBarWindow.findViewById(R.id.statusbar_carrier_text);
         if (mCarrierLabel != null) {
             updateCarrier();
+        }
+
+        validusLogo = (ImageView) mStatusBarWindow.findViewById(R.id.validus_logo);
+        if (validusLogo != null) {
+            showValidusLogo(mValidusLogo);
         }
 
         mFlashlightController = new FlashlightController(mContext);
@@ -5592,6 +5597,7 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
         updateNotifications();
         checkBarModes();
         updateCarrier();
+        showValidusLogo(mValidusLogo);
         updateMediaMetaData(false, mState != StatusBarState.KEYGUARD);
         mKeyguardMonitor.notifyKeyguardState(mStatusBarKeyguardViewManager.isShowing(),
                 mStatusBarKeyguardViewManager.isSecure(),
