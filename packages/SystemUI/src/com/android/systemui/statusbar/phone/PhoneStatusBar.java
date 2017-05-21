@@ -503,9 +503,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     boolean mExpandedVisible;
 
     // Validus logo
-    private boolean mValidusLogo;
     private ImageView validusLogo;
     private int mValidusLogoStyle;
+    private int mValidusLogoPosition;
 
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
@@ -619,7 +619,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                   Settings.System.QS_ROWS_LANDSCAPE),
                   false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
-                  Settings.System.STATUS_BAR_VALIDUS_LOGO),
+                  Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION),
                   false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE),
@@ -786,11 +786,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         public void updateSettings() {
             ContentResolver resolver = mContext.getContentResolver();
 
-            mValidusLogo = Settings.System.getIntForUser(resolver,
-                    Settings.System.STATUS_BAR_VALIDUS_LOGO, 0, UserHandle.USER_CURRENT) == 1;
             mValidusLogoStyle = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, 0, UserHandle.USER_CURRENT);
-            showValidusLogo(mValidusLogo);
+            mValidusLogoPosition = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION, 0, UserHandle.USER_CURRENT);
+            showValidusLogo();
 
             mClockLocation = Settings.System.getIntForUser(
                 resolver, Settings.System.STATUSBAR_CLOCK_STYLE, 0,
@@ -1533,7 +1533,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         validusLogo = (ImageView) mStatusBarWindow.findViewById(R.id.validus_logo);
         if (validusLogo != null) {
-            showValidusLogo(mValidusLogo);
+            showValidusLogo();
         }
 
         mFlashlightController = new FlashlightController(mContext);
@@ -4732,11 +4732,22 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
         }, cancelAction, afterKeyguardGone);
     }
 
-    public void showValidusLogo(boolean show) {
+    public void showValidusLogo() {
           Drawable logo = null;
 
           if (mStatusBarView == null) return;
           ContentResolver resolver = mContext.getContentResolver();
+
+          /* Check if the logo is disabled
+           * Also should be enabled for statusbar
+           */
+          if ((mValidusLogoPosition == 0) ||
+              ((mValidusLogoPosition != 1) && (mValidusLogoPosition != 3))) {
+              if (validusLogo != null) {
+                  validusLogo.setVisibility(View.GONE);
+              }
+              return;
+          }
 
           switch(mValidusLogoStyle) {
               case 0:
@@ -4755,7 +4766,7 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
               }
 
               validusLogo.setImageDrawable(logo);
-              validusLogo.setVisibility(show ? (mValidusLogo ? View.VISIBLE : View.GONE) : View.GONE);
+              validusLogo.setVisibility(View.VISIBLE);
           }
      }
 
@@ -5597,7 +5608,7 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
         updateNotifications();
         checkBarModes();
         updateCarrier();
-        showValidusLogo(mValidusLogo);
+        showValidusLogo();
         updateMediaMetaData(false, mState != StatusBarState.KEYGUARD);
         mKeyguardMonitor.notifyKeyguardState(mStatusBarKeyguardViewManager.isShowing(),
                 mStatusBarKeyguardViewManager.isSecure(),

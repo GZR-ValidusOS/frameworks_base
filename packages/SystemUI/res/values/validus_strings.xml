@@ -160,9 +160,8 @@
     <string name="lockscreen_none_target">None</string>
 
     <!-- Validus Logo -->
-    <string name="status_bar_validus_logo_title">Validus logo</string>
-    <string name="status_bar_validus_logo_summary">Enable to show Validus logo on the left side of the statusbar</string>
     <string name="status_bar_validus_logo_style_title">Validus logo style</string>
+    <string name="status_bar_validus_logo_position_title">Validus logo</string>
 
     <!-- Screenshot action -->
     <string name="screenshot_abort_title">No screenshot taken</string>
