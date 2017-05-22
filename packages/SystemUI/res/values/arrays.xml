@@ -32,10 +32,14 @@
     <!-- Validus Logo -->
     <string-array name="status_bar_validus_logo_style_entries">
         <item>The Wolf Look</item>
+        <item>Running Wolf</item>
+        <item>Wolf Teeth</item>
     </string-array>
 
     <string-array name="status_bar_validus_logo_style_values" translatable="false">
         <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
     <!-- Validus Logo Placement -->

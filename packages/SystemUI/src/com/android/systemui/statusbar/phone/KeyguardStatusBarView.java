@@ -169,6 +169,14 @@ public class KeyguardStatusBarView extends RelativeLayout
               return;
           }
           switch(mValidusLogoStyle) {
+              // Running Wolf
+              case 1:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_running_wolf_logo);
+                  break;
+              // Wolf Teeth
+              case 2:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_wolf_teeth_logo);
+                  break;
               // The Wolf Face or Default
               case 0:
               default:
