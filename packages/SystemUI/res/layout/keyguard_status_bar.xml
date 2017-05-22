@@ -76,7 +76,7 @@
         android:id="@+id/keyguard_clock"
         android:textAppearance="@style/TextAppearance.StatusBar.Clock"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:singleLine="true"
         android:paddingEnd="6dip"
         android:gravity="center"
@@ -88,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/keyguard_validus_logo_margin"
         android:gravity="center"
+        android:layout_gravity="center"
         android:src="@drawable/ic_status_bar_validus_logo"
         android:scaleType="center"
         android:visibility="gone" />
