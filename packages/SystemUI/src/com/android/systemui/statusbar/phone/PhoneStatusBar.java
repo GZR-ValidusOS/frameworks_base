@@ -4749,6 +4749,14 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
               return;
           }
 
+          // do not show when the statusbar state is KEYGUARD
+          if (isFalsingThresholdNeeded() == true) {
+              if (validusLogo != null) {
+                  validusLogo.setVisibility(View.GONE);
+              }
+              return;
+          }
+
           switch(mValidusLogoStyle) {
               case 0:
               default:
