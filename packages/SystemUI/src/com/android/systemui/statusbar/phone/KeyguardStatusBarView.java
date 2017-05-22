@@ -177,6 +177,18 @@ public class KeyguardStatusBarView extends RelativeLayout
               case 2:
                   logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_wolf_teeth_logo);
                   break;
+              // GZR Skull
+              case 3:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_gzr_skull_logo);
+                  break;
+              // GZR Circle
+              case 4:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_gzr_circle_logo);
+                  break;
+              // Clown
+              case 5:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_clown_logo);
+                  break;
               // The Wolf Face or Default
               case 0:
               default:

@@ -34,12 +34,18 @@
         <item>The Wolf Look</item>
         <item>Running Wolf</item>
         <item>Wolf Teeth</item>
+        <item>GZR Skull</item>
+        <item>GZR Circle</item>
+        <item>Clown</item>
     </string-array>
 
     <string-array name="status_bar_validus_logo_style_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
     <!-- Validus Logo Placement -->
