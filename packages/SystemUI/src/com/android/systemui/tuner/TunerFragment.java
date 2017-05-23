@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v14.preference.PreferenceFragment;
 import android.support.v14.preference.SwitchPreference;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceScreen;
@@ -31,13 +32,16 @@ import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.systemui.R;
 
-public class TunerFragment extends PreferenceFragment {
+public class TunerFragment extends PreferenceFragment 
+	implements OnPreferenceChangeListener {
 
     private static final String TAG = "TunerFragment";
 
-    private static final String STATUS_BAR_VALIDUS_LOGO = "status_bar_validus_logo";
+    private static final String STATUS_BAR_VALIDUS_LOGO_STYLE = "status_bar_validus_logo_style";
+    private static final String STATUS_BAR_VALIDUS_LOGO_POSITION = "status_bar_validus_logo_position";
 
-    private SwitchPreference mValidusLogo;
+    private ListPreference mValidusLogoStyle;
+    private ListPreference mValidusLogoPosition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,9 +51,17 @@ public class TunerFragment extends PreferenceFragment {
 
         final ContentResolver resolver = getActivity().getContentResolver();
 
-        mValidusLogo = (SwitchPreference) findPreference(STATUS_BAR_VALIDUS_LOGO);
-        mValidusLogo.setChecked((Settings.System.getInt(resolver,
-                Settings.System.STATUS_BAR_VALIDUS_LOGO, 0) == 1));
+        mValidusLogoStyle = (ListPreference) findPreference(STATUS_BAR_VALIDUS_LOGO_STYLE);
+        mValidusLogoStyle.setOnPreferenceChangeListener(this);
+        mValidusLogoStyle.setValue(Integer.toString(Settings.System.getInt(resolver,
+                Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, 0)));
+        mValidusLogoStyle.setSummary(mValidusLogoStyle.getEntry());
+
+        mValidusLogoPosition = (ListPreference) findPreference(STATUS_BAR_VALIDUS_LOGO_POSITION);
+        mValidusLogoPosition.setOnPreferenceChangeListener(this);
+        mValidusLogoPosition.setValue(Integer.toString(Settings.System.getInt(resolver,
+                Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION, 0)));
+        mValidusLogoPosition.setSummary(mValidusLogoPosition.getEntry());
     }
 
     @Override
@@ -81,14 +93,30 @@ public class TunerFragment extends PreferenceFragment {
         MetricsLogger.visibility(getContext(), MetricsEvent.TUNER, false);
     }
 
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+	ContentResolver resolver = getActivity().getContentResolver();
+
+	if (preference == mValidusLogoStyle) {
+	    int val = Integer.parseInt((String) newValue);
+	    int index = mValidusLogoStyle.findIndexOfValue((String) newValue);
+	    Settings.System.putInt(resolver,
+		    Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, val);
+	    mValidusLogoStyle.setSummary(mValidusLogoStyle.getEntries()[index]);
+	    return true;
+	}
+	if (preference == mValidusLogoPosition) {
+	    int val = Integer.parseInt((String) newValue);
+	    int index = mValidusLogoPosition.findIndexOfValue((String) newValue);
+	    Settings.System.putInt(resolver,
+		    Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION, val);
+	    mValidusLogoPosition.setSummary(mValidusLogoPosition.getEntries()[index]);
+	    return true;
+	}
+	return false;
+    }
+
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
-        if  (preference == mValidusLogo) {
-            boolean checked = ((SwitchPreference)preference).isChecked();
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.STATUS_BAR_VALIDUS_LOGO, checked ? 1:0);
-            return true;
-          }
         return super.onPreferenceTreeClick(preference);
     }
 }

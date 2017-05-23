@@ -4618,7 +4618,13 @@ public final class Settings {
          * Statusbar Validus logo
          * @hide
          */
-        public static final String STATUS_BAR_VALIDUS_LOGO = "status_bar_validus_logo";
+        public static final String STATUS_BAR_VALIDUS_LOGO_POSITION = "status_bar_validus_logo_position";
+
+        /**
+         * Statusbar Validus logo Style
+         * @hide
+         */
+        public static final String STATUS_BAR_VALIDUS_LOGO_STYLE = "status_bar_validus_logo_style";
 
         /**
          * custom carrier label. The value is

@@ -105,6 +105,12 @@ public class KeyguardStatusBarView extends RelativeLayout
     private int mSystemIconsBaseMargin;
     private View mSystemIconsContainer;
 
+
+    // Validus logo
+    private ImageView validusLogo;
+    private int mValidusLogoStyle;
+    private int mValidusLogoPosition;
+
     private boolean mShowBatteryText;
     private boolean mForceBatteryText;
     private boolean mForceChargeBatteryText;
@@ -113,6 +119,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         public void onChange(boolean selfChange, Uri uri) {
             showStatusBarCarrier();
             showKeyguardClock();
+            getValidusLogo();
             updateVisibilities();
         }
     };
@@ -121,6 +128,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         super(context, attrs);
         showStatusBarCarrier();
         showKeyguardClock();
+        getValidusLogo();
     }
 
     private void showStatusBarCarrier() {
@@ -137,6 +145,72 @@ public class KeyguardStatusBarView extends RelativeLayout
                 Settings.System.KEYGUARD_SHOW_CLOCK, 1, UserHandle.USER_CURRENT);
     }
 
+    private void getValidusLogo() {
+        ContentResolver resolver = getContext().getContentResolver();
+        mValidusLogoStyle = Settings.System.getIntForUser(resolver,
+                Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, 0, UserHandle.USER_CURRENT);
+        mValidusLogoPosition = Settings.System.getIntForUser(resolver,
+                Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION, 0, UserHandle.USER_CURRENT);
+    }
+
+    public void showValidusLogo() {
+          Drawable logo = null;
+
+          ContentResolver resolver = mContext.getContentResolver();
+
+          /* Check if the logo is disabled
+           * Also should be enabled for lockscreen
+           */
+          if ((mValidusLogoPosition == 0) ||
+              ((mValidusLogoPosition != 2) && (mValidusLogoPosition != 3))) {
+              if (validusLogo != null) {
+                  validusLogo.setVisibility(View.GONE);
+              }
+              return;
+          }
+          switch(mValidusLogoStyle) {
+              // Running Wolf
+              case 1:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_running_wolf_logo);
+                  break;
+              // Wolf Teeth
+              case 2:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_wolf_teeth_logo);
+                  break;
+              // GZR Skull
+              case 3:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_gzr_skull_logo);
+                  break;
+              // GZR Circle
+              case 4:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_gzr_circle_logo);
+                  break;
+              // Clown
+              case 5:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_clown_logo);
+                  break;
+              // The Wolf Face or Default
+              case 0:
+              default:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_validus_logo);
+                  break;
+          }
+
+          validusLogo = (ImageView) findViewById(R.id.keyguard_validus_logo);
+          if (validusLogo != null) {
+              if (logo == null) {
+                  // Something wrong. Do not show anything
+                  validusLogo.setImageDrawable(logo);
+                  validusLogo.setVisibility(View.GONE);
+                  return;
+              }
+
+              validusLogo.setImageDrawable(logo);
+              validusLogo.setVisibility(View.VISIBLE);
+          }
+     }
+
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -147,6 +221,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         mBatteryLevel = (TextView) findViewById(R.id.battery_level);
         mCarrierLabel = (TextView) findViewById(R.id.keyguard_carrier_text);
         mKeyguardClock = (TextView) findViewById(R.id.keyguard_clock);
+        validusLogo = (ImageView) findViewById(R.id.keyguard_validus_logo);
         loadDimens();
         updateUserSwitcher();
         updateVisibilities();
@@ -207,6 +282,11 @@ public class KeyguardStatusBarView extends RelativeLayout
                 getResources().getDimensionPixelSize(R.dimen.keyguard_carrier_text_margin));
         mCarrierLabel.setLayoutParams(lp);
 
+        lp = (MarginLayoutParams) validusLogo.getLayoutParams();
+        lp.setMarginStart(
+                getResources().getDimensionPixelSize(R.dimen.keyguard_validus_logo_margin));
+        validusLogo.setLayoutParams(lp);
+
         lp = (MarginLayoutParams) getLayoutParams();
         lp.height =  getResources().getDimensionPixelSize(
                 R.dimen.status_bar_header_height_keyguard);
@@ -263,6 +343,8 @@ public class KeyguardStatusBarView extends RelativeLayout
                 }
             }
             getFontStyle(mCarrierLabelFontStyle);
+
+            showValidusLogo();
         }
 
     public void getFontStyle(int font) {
@@ -536,6 +618,10 @@ public class KeyguardStatusBarView extends RelativeLayout
                 Settings.System.STATUS_BAR_CARRIER_FONT_STYLE), false, mObserver);
         getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
                 Settings.System.KEYGUARD_SHOW_CLOCK), false, mObserver);
+        getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE), false, mObserver);
+        getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION), false, mObserver);
     }
 
     @Override

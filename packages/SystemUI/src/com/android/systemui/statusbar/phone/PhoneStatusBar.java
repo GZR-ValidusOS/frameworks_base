@@ -503,8 +503,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     boolean mExpandedVisible;
 
     // Validus logo
-    private boolean mValidusLogo;
     private ImageView validusLogo;
+    private int mValidusLogoStyle;
+    private int mValidusLogoPosition;
 
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
@@ -618,8 +619,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                   Settings.System.QS_ROWS_LANDSCAPE),
                   false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
-                  Settings.System.STATUS_BAR_VALIDUS_LOGO),
+                  Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION),
                   false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE),
+                    false, this, UserHandle.USER_ALL);
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.STATUS_BAR_SHOW_CARRIER),
                   false, this, UserHandle.USER_ALL);
@@ -782,9 +786,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         public void updateSettings() {
             ContentResolver resolver = mContext.getContentResolver();
 
-            mValidusLogo = Settings.System.getIntForUser(resolver,
-                    Settings.System.STATUS_BAR_VALIDUS_LOGO, 0, mCurrentUserId) == 1;
-            showValidusLogo(mValidusLogo);
+            mValidusLogoStyle = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO_STYLE, 0, UserHandle.USER_CURRENT);
+            mValidusLogoPosition = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION, 0, UserHandle.USER_CURRENT);
+            showValidusLogo();
 
             mClockLocation = Settings.System.getIntForUser(
                 resolver, Settings.System.STATUSBAR_CLOCK_STYLE, 0,
@@ -1523,6 +1529,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mCarrierLabel = (TextView) mStatusBarWindow.findViewById(R.id.statusbar_carrier_text);
         if (mCarrierLabel != null) {
             updateCarrier();
+        }
+
+        validusLogo = (ImageView) mStatusBarWindow.findViewById(R.id.validus_logo);
+        if (validusLogo != null) {
+            showValidusLogo();
         }
 
         mFlashlightController = new FlashlightController(mContext);
@@ -4721,12 +4732,70 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
         }, cancelAction, afterKeyguardGone);
     }
 
-    public void showValidusLogo(boolean show) {
+    public void showValidusLogo() {
+          Drawable logo = null;
+
           if (mStatusBarView == null) return;
           ContentResolver resolver = mContext.getContentResolver();
+
+          /* Check if the logo is disabled
+           * Also should be enabled for statusbar
+           */
+          if ((mValidusLogoPosition == 0) ||
+              ((mValidusLogoPosition != 1) && (mValidusLogoPosition != 3))) {
+              if (validusLogo != null) {
+                  validusLogo.setVisibility(View.GONE);
+              }
+              return;
+          }
+
+          // do not show when the statusbar state is KEYGUARD
+          if (isFalsingThresholdNeeded() == true) {
+              if (validusLogo != null) {
+                  validusLogo.setVisibility(View.GONE);
+              }
+              return;
+          }
+
+          switch(mValidusLogoStyle) {
+              // Running Wolf
+              case 1:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_running_wolf_logo);
+                  break;
+              // Wolf Teeth
+              case 2:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_wolf_teeth_logo);
+                  break;
+              // GZR Skull
+              case 3:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_gzr_skull_logo);
+                  break;
+              // GZR Circle
+              case 4:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_gzr_circle_logo);
+                  break;
+              // Clown
+              case 5:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_clown_logo);
+                  break;
+              // The Wolf Face or Default
+              case 0:
+              default:
+                  logo = mContext.getResources().getDrawable(R.drawable.ic_status_bar_validus_logo);
+                  break;
+          }
+
           validusLogo = (ImageView) mStatusBarView.findViewById(R.id.validus_logo);
           if (validusLogo != null) {
-              validusLogo.setVisibility(show ? (mValidusLogo ? View.VISIBLE : View.GONE) : View.GONE);
+              if (logo == null) {
+                  // Something wrong. Do not show anything
+                  validusLogo.setImageDrawable(logo);
+                  validusLogo.setVisibility(View.GONE);
+                  return;
+              }
+
+              validusLogo.setImageDrawable(logo);
+              validusLogo.setVisibility(View.VISIBLE);
           }
      }
 
@@ -5568,6 +5637,7 @@ mWeatherTempSize, mWeatherTempFontStyle, mWeatherTempColor);
         updateNotifications();
         checkBarModes();
         updateCarrier();
+        showValidusLogo();
         updateMediaMetaData(false, mState != StatusBarState.KEYGUARD);
         mKeyguardMonitor.notifyKeyguardState(mStatusBarKeyguardViewManager.isShowing(),
                 mStatusBarKeyguardViewManager.isSecure(),

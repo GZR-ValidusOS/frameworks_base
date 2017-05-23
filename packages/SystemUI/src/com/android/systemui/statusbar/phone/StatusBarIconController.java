@@ -380,7 +380,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         animateHide(mNotificationIconAreaInner, animate);
         animateHide(mCenterClockLayout, animate);
         if (Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUS_BAR_VALIDUS_LOGO, 0) == 1) {
+                Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION, 0) == 1) {
            animateHide(mValidusLogo, animate);
         }
     }
@@ -389,7 +389,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         animateShow(mNotificationIconAreaInner, animate);
         animateShow(mCenterClockLayout, animate);
         if (Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUS_BAR_VALIDUS_LOGO, 0) == 1) {
+                Settings.System.STATUS_BAR_VALIDUS_LOGO_POSITION, 0) == 1) {
            animateShow(mValidusLogo, animate);
         }
     }
