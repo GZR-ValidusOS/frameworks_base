@@ -24,10 +24,13 @@
     <!-- Notification action button -->
     <color name="notification_action_color_filter">#9F9F9F</color>
 
+    <color name="notification_action_list">#000000</color>
+    <color name="notification_material_background_color">#ff000000</color>
+
     <!-- System - Accents -->
  	<color name="accent_material_light">#cc0000</color>
  	<color name="accent_material_dark">#cc0000</color>
- 
+
  	<!-- StatusBar Expanded - User Icons -->
  	<color name="user_icon_1">#cc0000</color>
  	<color name="user_icon_2">#cc0000</color>
