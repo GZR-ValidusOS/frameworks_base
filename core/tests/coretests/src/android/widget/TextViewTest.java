@@ -167,6 +167,6 @@ public class TextViewTest extends ActivityInstrumentationTestCase2<TextViewActiv
         tv.setText("Second");
 
         assertEquals(Arrays.asList("First"), one);
-        assertEquals(Arrays.asList("First", "Second"), two));
+        assertEquals(Arrays.asList("First", "Second"), two);
     }
 }
