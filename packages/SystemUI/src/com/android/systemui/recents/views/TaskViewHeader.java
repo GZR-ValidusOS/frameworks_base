@@ -588,7 +588,7 @@ public class TaskViewHeader extends FrameLayout
             mDismissButton.setAlpha(1f);
         }
         if (Settings.System.getInt(mContext.getContentResolver(),
-                       Settings.System.LOCK_TO_APP_ENABLED, 0) != 0) {
+                Settings.System.LOCK_TO_APP_ENABLED, 0) != 0) {
             mPinButton.setVisibility(View.VISIBLE);
             mPinButton.setClickable(true);
             if (mPinButton.getVisibility() == VISIBLE) {
@@ -600,6 +600,9 @@ public class TaskViewHeader extends FrameLayout
             } else {
                 mPinButton.setAlpha(1f);
             }
+        } else  {
+            mPinButton.setVisibility(View.GONE);
+            mPinButton.setClickable(false);
         }
         mLockTaskButton.setVisibility(View.VISIBLE);
         mLockTaskButton.setClickable(true);
@@ -637,21 +640,20 @@ public class TaskViewHeader extends FrameLayout
         mDismissButton.setAlpha(1f);
         mDismissButton.setClickable(true);
         //Pin button
-        mPinButton.setVisibility(View.VISIBLE);
-        mPinButton.animate().cancel();
-        mPinButton.setAlpha(1f);
-        mPinButton.setClickable(true);
-        mLockTaskButton.setVisibility(View.VISIBLE);
-        mLockTaskButton.setClickable(true);
-        if (mLockTaskButton.getVisibility() == VISIBLE) {
-            mLockTaskButton.animate()
-                    .alpha(1f)
-                    .setInterpolator(Interpolators.FAST_OUT_LINEAR_IN)
-                    .setDuration(duration)
-                    .start();
-        } else {
-            mLockTaskButton.setAlpha(1f);
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.LOCK_TO_APP_ENABLED, 0) != 0) {
+            mPinButton.setVisibility(View.VISIBLE);
+            mPinButton.animate().cancel();
+            mPinButton.setAlpha(1f);
+            mPinButton.setClickable(true);
+        } else  {
+            mPinButton.setVisibility(View.GONE);
+            mPinButton.setClickable(false);
         }
+        mLockTaskButton.setVisibility(View.VISIBLE);
+        mLockTaskButton.animate().cancel();
+        mLockTaskButton.setAlpha(1f);
+        mLockTaskButton.setClickable(true);
         if (mMoveTaskButton != null) {
             mMoveTaskButton.setVisibility(View.VISIBLE);
             mMoveTaskButton.animate().cancel();
