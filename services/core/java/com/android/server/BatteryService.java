@@ -174,6 +174,8 @@ public final class BatteryService extends SystemService {
                 com.android.internal.R.integer.config_lowBatteryCloseWarningBump);
         mShutdownBatteryTemperature = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_shutdownBatteryTemperature);
+        mLightEnabled = mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_intrusiveBatteryLed);
 
         // watch for invalid charger messages if the invalid_charger switch exists
         if (new File("/sys/devices/virtual/switch/invalid_charger/state").exists()) {
