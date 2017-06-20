@@ -8147,6 +8147,12 @@ public final class Settings {
         public static final String HARDWARE_KEYS_DISABLE = "hardware_keys_disable";
 
         /**
+         * Backlight on hw buttons - 0-255
+         * @hide
+         */
+        public static final String HARDWAREKEYS_BACKLIGHT_VAL = "hardware_keys_light_val";
+
+        /**
          * Whether to set a lower brightness level when enabling night mode
          * 0: Disabled
          * 1: Set the brightness to a very low value
