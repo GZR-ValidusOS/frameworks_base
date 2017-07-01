@@ -29,14 +29,14 @@
         <item>@color/battery_charge_level_on_normal_statusbar</item>
     </array>
 
-    <!-- Validus Logo -->
+    <!-- Validus logo -->
     <string-array name="status_bar_validus_logo_style_entries">
-        <item>The Wolf Look</item>
-        <item>Running Wolf</item>
-        <item>Wolf Teeth</item>
-        <item>GZR Skull</item>
-        <item>GZR Circle</item>
-        <item>Clown</item>
+        <item>@string/logo_style_one</item>
+        <item>@string/logo_style_two</item>
+        <item>@string/logo_style_three</item>
+        <item>@string/logo_style_four</item>
+        <item>@string/logo_style_five</item>
+        <item>@string/logo_style_six</item>
     </string-array>
 
     <string-array name="status_bar_validus_logo_style_values" translatable="false">
@@ -48,12 +48,12 @@
         <item>5</item>
     </string-array>
 
-    <!-- Validus Logo Placement -->
+    <!-- Validus logo placement -->
     <string-array name="status_bar_validus_logo_position_entries">
-        <item>Disabled</item>
-        <item>Statusbar Only</item>
-        <item>Lockscreen Only</item>
-        <item>Lockscreen and Statusbar</item>
+        <item>@string/logo_placement_one</item>
+        <item>@string/logo_placement_two</item>
+        <item>@string/logo_placement_three</item>
+        <item>@string/logo_placement_four</item>
     </string-array>
 
     <string-array name="status_bar_validus_logo_position_values" translatable="false">
@@ -62,5 +62,4 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-
 </resources>
