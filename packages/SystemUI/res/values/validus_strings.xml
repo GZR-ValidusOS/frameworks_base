@@ -44,7 +44,7 @@
 
     <string name="quick_settings_sync_label">Sync</string>
 
-    <!-- High Brightness Mode Tile -->
+    <!-- High brightness mode tile -->
     <string name="quick_settings_high_brightness">High brightness</string>
 
     <string name="accessibility_quick_settings_sync_off">Sync off</string>
@@ -82,7 +82,7 @@
     <string name="quick_settings_pulse_disabled">No Visualizer</string>
     <string name="quick_settings_pulse_label">Navigationbar Visualizer</string>
 
-    <!-- Heads Up QS Tile -->
+    <!-- Heads Up QS tile -->
     <string name="quick_settings_heads_up_label">Heads up</string>
     <string name="quick_settings_wolvesden">Wolvesden</string>
     <string name="accessibility_quick_settings_heads_up_off">Heads up off.</string>
@@ -101,9 +101,6 @@
     <string name="quick_settings_location_gps_only_label">Device only</string>
     <string name="quick_settings_location_high_accuracy_label">High accuracy</string>
     <string name="quick_settings_location_off_custom_label">Location</string>
-
-    <!-- SystemUI Tuner Parts -->
-    <string name="systemui_tuner_statusbar_title">Statusbar items</string>
 
     <!-- Content description of the data connection type HSPA+ for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
     <string name="accessibility_data_connection_HP">HSPA+</string>
@@ -126,19 +123,19 @@
     <string name="screenrecord_notif_pointer_off">Hide pointer</string>
     <string name="screenrecord_notif_error">Unable to record screen</string>
 
-    <!-- SystemUI Tuner Parts -->
-    <string name="systemui_tuner_statusbar_title">Statusbar items</string>
+    <!-- SystemUI Tuner parts -->
+    <string name="systemui_tuner_statusbar_title">Status bar items</string>
     <string name="systemui_tuner_pnc_title">Power notification controls</string>
 
-    <!-- Navigation bar Tile -->
+    <!-- Navigation bar tile -->
     <string name="quick_settings_navigation_bar">Navigation bar</string>
     <string name="quick_settings_smartbar">SmartBar</string>
     <string name="quick_settings_fling">Fling</string>
 
-    <!-- Doze Tile -->
+    <!-- Doze tile -->
     <string name="quick_settings_doze_notifications_label">Doze notifications</string>
 
-    <!-- QS Lockscreen Tile -->
+    <!-- QS lock screen tile -->
     <string name="quick_settings_lockscreen_label">Lock screen</string>
     <string name="quick_settings_lockscreen_label_enforced">Lock screen enforced</string>
     <!-- Content description of the lock screen tile in quick settings when off (not shown on the screen). [CHAR LIMIT=NONE] -->
@@ -150,7 +147,7 @@
     <!-- Announcement made when lock screen changes to on (not shown on the screen). [CHAR LIMIT=NONE] -->
     <string name="accessibility_quick_settings_lock_screen_changed_on">Lock screen turned on.</string>
 
-    <!-- Lockscreen shortcuts -->
+    <!-- Lock screen shortcuts -->
     <string name="left_shortcut_hint">Swipe right for %1$s</string>
     <string name="right_shortcut_hint">Swipe left for %1$s</string>
     <string name="lockscreen_message">Tap an icon on the left or right to reassign a lock screen shortcut.</string>
@@ -159,9 +156,23 @@
     <string name="lockscreen_choose_action_title">Choose action</string>
     <string name="lockscreen_none_target">None</string>
 
-    <!-- Validus Logo -->
+    <!-- Validus logo -->
     <string name="status_bar_validus_logo_style_title">Validus logo style</string>
     <string name="status_bar_validus_logo_position_title">Validus logo</string>
+
+    <!-- Validus logo styles -->
+    <string name="logo_style_one">The Wolf Look</string>
+    <string name="logo_style_two">Running Wolf</string>
+    <string name="logo_style_three">Running Wolf</string>
+    <string name="logo_style_four">GZR Skull</string>
+    <string name="logo_style_five">GZR Circle</string>
+    <string name="logo_style_six">Clown</string>
+
+    <!-- Validus logo placement -->
+    <string name="logo_placement_one">Disabled</string>
+    <string name="logo_placement_two">Status bar only</string>
+    <string name="logo_placement_three">Lock screen only</string>
+    <string name="logo_placement_four">Lock screen &amp; status bar</string>
 
     <!-- Screenshot action -->
     <string name="screenshot_abort_title">No screenshot taken</string>
