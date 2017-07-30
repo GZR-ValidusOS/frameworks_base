@@ -8983,7 +8983,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private void checkSettings() {
         mScreenshotDelay = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.SCREENSHOT_DELAY, 100);
+                Settings.System.SCREENSHOT_DELAY, 600);
     }
 
     public void freezeOrThawRotation(int rotation) {
